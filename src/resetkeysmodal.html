@@ -1,0 +1,38 @@
+<template class="modal is-active">
+
+  <div class="modal-background" click.delegate="state.showResetKeys = false"></div>
+
+  <div class="modal-content has-background-white-bis">
+
+    <div class="hero is-danger is-small">
+      <div class="hero-body has-tri1" style="padding: 1rem 0.75rem; position: relative;">
+        <div>
+          <h1 class="title">
+            Remove Wallet
+          </h1>
+
+        </div>
+
+      </div>
+    </div>
+
+    <div class="field p-75" style="margin-bottom:0;">
+      <p class="label has-text-weight-normal is-light is-small is-paddingless">
+        This action will clear the current wallet from the browser cache. Make sure to have your Private Key backed up. There is
+        no other way to gain access to this wallet ever again. Once the Private Key is lost, there isn't enough energy in
+        the entire universe to bring it back.
+      </p>
+    </div>
+
+    <div class="field p-75">
+      <div class="has-text-right">
+        <button class="button has-tri1 is-size-7 is-danger material" click.delegate="reset()">
+          Clear Private Key
+        </button>
+      </div>
+    </div>
+
+
+  </div>
+
+</template>

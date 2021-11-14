@@ -1,0 +1,151 @@
+<template>
+
+
+  <div class="columns is-marginless is-centered">
+    <div class="column is-half" style="margin-bottom:3rem;">
+
+      <div show.bind="!state.privateKey">
+
+        <div class="box">
+          <div style="font-size: 12px; color: red; padding-bottom: 0.5rem;">
+            ${state.t.app.reminder[state.l]}
+          </div>
+
+          <p class="label">${state.t.wallet.h1[state.l]}</p>
+
+
+
+          <div class="field">
+            <p class="label has-text-weight-normal is-light is-small">
+              ${state.t.wallet.l1[state.l]}</p>
+
+            <div class="control">
+              <input value.bind="state.name" class="input input-borderless" type="text" maxlength="25" placeholder="${state.t.wallet.p1[state.l]}">
+            </div>
+
+            <p show.bind="err" class="label has-text-weight-normal has-text-danger is-small">${err}</p>
+
+
+          </div>
+
+          <div show.bind="state.name" class="field">
+            <div class="has-text-right">
+              <button class="button is-primary material" click.delegate="createWallet()">${state.t.wallet.h1[state.l]}</button>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="box">
+          <p class="label">${state.t.wallet.h2[state.l]}</p>
+
+          <div class="field">
+            <p class="label has-text-weight-normal is-light is-small">${state.t.wallet.l2[state.l]}</p>
+
+            <div class="control">
+              <input value.bind="key" class="input input-borderless" type="password" placeholder="${state.t.app.k1[state.l]}">
+            </div>
+
+            <p show.bind="err2" class="label has-text-weight-normal has-text-danger is-small">${err2}</p>
+
+
+          </div>
+
+          <div show.bind="key" class="field">
+            <div class="has-text-right">
+              <button class="button is-primary material" click.delegate="recoverWallet()">Wallet laden</button>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div show.bind="state.privateKey">
+
+        <div class="hero is-small is-primary has-shadow">
+
+          <div class="hero-body has-tri1" style="padding: 1.5rem 0.75rem;">
+            <p> <span class="has-text-weight-semibold">${state.name}'s</span> Wallet</p>
+            <p class="subtitle is-7 ">
+              ${state.t.wallet.h3[state.l]}
+            </p>
+
+          </div>
+        </div>
+
+        <div class="box">
+
+          <div class="field">
+            <p class="label">
+              ${state.t.app.k2[state.l]}
+            </p>
+
+            <p class="has-text-grey is-size-7">${state.publicKey.substring(2,64)}</p>
+
+          </div>
+
+          <div class="field" style="margin-top: 1rem;">
+            <p class="label">
+              ${state.t.app.k1[state.l]}
+            </p>
+
+            <p class="is-blurred has-text-grey is-size-7">${state.privateKey}</p>
+
+            <p class=" has-text-danger  is-size-7" style="margin-top:1rem;">
+              ${state.t.wallet.h5[state.l]}
+            </p>
+
+          </div>
+
+
+          <div class="field" style="margin-top: 1rem;">
+            <p class="label">
+              ${state.t.app.i1[state.l]}
+            </p>
+
+            <div class="content">
+              <ul type="1">
+                <li style="padding-bottom:0.75rem;">
+                  ${state.t.app.i2[state.l]}
+                </li>
+                <li style="padding-bottom:0.75rem;">
+                  ${state.t.app.i3[state.l]}
+                </li>
+                <li style="padding-bottom:0.75rem;">
+                  ${state.t.app.i4[state.l]}
+                </li>
+                <li style="padding-bottom:0.75rem;">
+                  ${state.t.app.i5[state.l]}
+                </li>
+                <li style="padding-bottom:0.75rem;">
+                  ${state.t.app.i6[state.l]}
+                </li>
+                <li style="padding-bottom:0.75rem;">
+                  ${state.t.app.i7[state.l]}
+                </li>
+
+              </ul>
+            </div>
+
+
+          </div>
+
+
+
+
+
+          <div class="field">
+            <div class="has-text-right">
+              <button class="is-size-7 has-tri1 button is-primary material" click.delegate="state.router.navigate('blockchain')">${state.t.wallet.b1[state.l]}</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+</template>

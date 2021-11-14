@@ -1,0 +1,47 @@
+<template>
+
+  <div class="is-flex" style=" position: relative; margin-bottom: 2rem;">
+    <div id="box" class="has-shadow jxgbox" style="width:600px; height:600px;"></div>
+
+    <div class="is-size-2" style="position: absolute; left:1rem; top: 1rem;">
+      ${multiple} G
+    </div>
+
+    <div show.bind="!eng" class="is-flex" style="position: absolute; bottom: 1rem; left: 1rem; flex-direction: column">
+
+      <button class="button is-primary  is-size-7" style="margin-bottom: 0.5rem;" click.delegate="doublePoint(x, y)">
+        Punkt verdoppeln
+      </button>
+
+      <button class="button is-primary  is-size-7" style="margin-bottom: 0.5rem;" click.delegate="addPoint(x, y)">
+        G addieren
+      </button>
+
+      <button disabled.bind="!history.length" class="button is-light is-size-7" click.delegate="stepBack()">
+        Schritt zurück
+      </button>
+
+    </div>
+
+    <div show.bind="eng" class="is-flex" style="position: absolute; bottom: 1rem; left: 1rem; flex-direction: column">
+
+        <button class="button is-primary  is-size-7" style="margin-bottom: 0.5rem;" click.delegate="doublePoint(x, y)">
+          Double point
+        </button>
+  
+        <button class="button is-primary  is-size-7" style="margin-bottom: 0.5rem;" click.delegate="addPoint(x, y)">
+          Add G
+        </button>
+  
+        <button disabled.bind="!history.length" class="button is-light is-size-7" click.delegate="stepBack()">
+          One step back
+        </button>
+  
+      </div>
+  </div>
+
+
+
+
+
+</template>

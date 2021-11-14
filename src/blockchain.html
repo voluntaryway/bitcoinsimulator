@@ -1,0 +1,203 @@
+<template>
+
+  <div show.bind="!state.lastBlock" class="box label has-text-centered">
+    ${state.t.app.l1[state.l]}
+  </div>
+
+  <div show.bind="state.lastBlock">
+
+    <div class="box has-text-centered label" show.bind="!state.fullChain.length">${state.t.chain.l1[state.l]}</div>
+
+    <div ref="state.blockchainScrollContainer" class="is-flex" style="overflow-x: auto; white-space: nowrap;padding-bottom:5rem;">
+      <div style="margin-left: 2rem;"></div>
+
+      <div show.bind="state.depthOffset > 0" class="has-tri1 has-shadow is-flex p-75" style="min-width: 300px; width: 300px; height: fit-content; margin: 0.5rem; flex-direction: column; white-space:normal">
+
+
+        <div show.bind="!state.isConstructing">
+          <div class="label">${state.depthOffset} ${state.t.chain.l12[state.l]}...</div>
+
+          <div class="is-size-7">
+            ${state.t.chain.l13[state.l]}
+          </div>
+
+          <div class="has-text-centered" style="margin: 1rem;">
+            <div click.delegate="state.showFullChain()" class="button is-size-7">${state.t.chain.l14[state.l]}</div>
+          </div>
+
+        </div>
+
+        <div show.bind="state.isConstructing">
+          <div class="label">${state.t.chain.l15[state.l]}...</div>
+
+          <div class="is-size-7">
+            ${state.t.chain.l16[state.l]}
+          </div>
+
+          <div class="has-text-centered">
+            Loading...
+          </div>
+
+
+        </div>
+
+
+
+      </div>
+
+      <div repeat.for="column of state.fullChain" class="is-flex" style="align-items: flex-start; flex-direction: column;">
+
+        <div repeat.for="block of column" class="has-shadow is-flex block-width" style="margin: 0.5rem; flex-direction: column; position: relative;">
+
+          <div css="${block.valid ? '' : 'opacity: 0.4'}">
+            <div class="hero is-primary is-small">
+              <div class="hero-body has-tri1" style="padding: 1rem 0.75rem 2rem 0.75rem; position: relative;">
+
+
+                <div>
+                  <h1 class="is-size-5">
+                    <span class="has-text-weight-semibold">Block ${$parent.$index + state.depthOffset}</span>
+                    <span class="is-size-8">${moment(block.createdAt).format('D/M/YY HH:mm:ss')}</span>
+                  </h1>
+
+
+                  <h2 class="subtitle">
+                    Miner:
+                    <span class="has-text-weight-semibold">${block.miner.name}</span>
+                  </h2>
+                </div>
+
+
+                <div show.bind="state.privateKey && block.head && block.isLast" class="button is-info has-shadow is-size-8" style="position: absolute; right:0; top: 0; padding:0.25rem 0.5rem;">
+                  <div>${state.t.chain.l2[state.l]}</div>
+                </div>
+
+                <div click.delegate="setAsLast(block)" show.bind="block.head && !block.isLast" class="button is-light has-shadow is-size-8"
+                     style="position: absolute; right:0; top: 0; padding:0.25rem 0.5rem;">
+                  ${state.t.chain.l3[state.l]}
+                </div>
+
+                <div show.bind="block.isLongest" class="has-background-success has-shadow is-size-8" style="position: absolute; right:0; bottom: 0; padding:0.25rem 0.5rem;">
+                  ${state.t.chain.l4[state.l]}
+                </div>
+
+                <div click.delegate="setAsLast(block)" show.bind="state.privateKey && !block.head && !block.isLast" class="button is-light has-shadow is-size-8"
+                     style="position: absolute; right:0; top: 0; padding:0.25rem 0.5rem; height: auto; flex-direction: column">
+                  <div>${state.t.chain.l5[state.l]}</div>
+                  <div class="is-hidden-mobile" style="font-size:8px">(${state.t.chain.l6[state.l]})</div>
+                </div>
+
+                <div show.bind="!block.head && block.isLast" class="button is-info has-shadow is-size-7" style="position: absolute; right:0; top: 0; padding:0.25rem 0.5rem;">
+                  ${state.t.chain.l2[state.l]}
+                </div>
+
+              </div>
+            </div>
+
+            <p class="has-text-centered is-size-7" style="padding: 0.25rem; border-bottom: 1px solid lightgrey">${block.transactions.length}
+              <span show.bind="block.transactions.length === 1">Transaction</span>
+              <span show.bind="block.transactions.length > 1">${state.t.block.l2[state.l]}</span>
+            </p>
+
+            <div class="field" style="margin:0; flex-grow: 1; height: 159px; overflow-y: auto">
+
+              <table show.bind="block.transactions.length" class="table  is-hoverable is-fullwidth" style="margin: 0">
+
+                <tbody class="has-text-weight-semibold has-text-grey">
+                  <tr repeat.for="t of block.transactions" style="padding: 0.5rem 0">
+                    <td>
+                      <div show.bind="t.sender.publicKey == '0'">New</div>
+                      <div show.bind="t.sender.publicKey !== '0'">${t.sender.name}</div>
+                      <div show.bind="t.sender.publicKey == '0'" class="is-size-7 has-text-weight-normal">${state.t.block.t3[state.l]}</div>
+                      <div show.bind="t.sender.publicKey !== '0'" class="is-size-7 has-text-weight-normal">${t.sender.publicKey.substring(2,12)}...</div>
+                    </td>
+
+                    <td class="has-text-info is-paddingless" style="vertical-align:middle">
+
+                      <i class="fas fa-long-arrow-alt-right"></i>
+
+                    </td>
+
+                    <td>
+                      <div>${t.recipient.name}</div>
+                      <div class="is-size-7 has-text-weight-normal">${t.recipient.publicKey.substring(2,12)}...</div>
+                    </td>
+
+                    <td class="has-text-weight-semibold has-text-right">
+                      <div>${t.amount}</div>
+                      <div class="is-size-7 has-text-weight-normal">BTC</div>
+                    </td>
+
+                  </tr>
+                </tbody>
+              </table>
+
+              <p show.bind="!block.transactions.length" class="label is-small has-text-weight-normal">
+                ${state.t.chain.l7[state.l]}
+              </p>
+
+            </div>
+
+            <div class="p-75" style="border-top: 1px solid lightgrey;">
+              <p class=" is-size-7">${state.t.block.l1[state.l]}</p>
+              <p class=" is-size-8 is-ellipsis has-text-dark">${block.previoushash}</p>
+            </div>
+
+            <div class="field ${block.valid ? 'has-border-success' : 'has-border-danger'}" style="padding: 0.5rem 0.75rem 0.75rem 0.75rem; border-top-width: 3px; border-top-style: solid">
+
+              <p class="is-size-8 has-text-dark" style="margin-bottom: 0.25rem;">Nonce: ${block.nonce} </p>
+
+              <p class="title is-size-7">Hash</p>
+              <p class="subtitle is-ellipsis is-size-8 ">${block.hash}</p>
+
+            </div>
+
+          </div>
+
+          <div show.bind="!block.valid" class="has-text-danger is-flex has-text-weight-semibold" style="position: absolute; justify-content: center; align-items: center; 
+            width: 100%; height: 100%; flex-direction: column; pointer-events: none">
+            <div show.bind="block.invalidChain">${state.t.chain.l8[state.l]}</div>
+            <div show.bind="block.invalidHash">${state.t.chain.l9[state.l]}</div>
+            <div show.bind=block.invalidSignatures>${state.t.chain.l10[state.l]}</div>
+            <div show.bind="block.balanceInvalid">${state.t.chain.l11[state.l]}</div>
+          </div>
+
+
+        </div>
+
+      </div>
+
+
+
+
+      <div class="is-hidden-mobile" style="margin-left: 20rem; opacity: 0;">0</div>
+      <div class="is-hidden-tablet" style="margin-left: 2rem; opacity: 0;">0</div>
+
+
+      <div show.bind="state.fullChain.length">
+        <div click.delegate="scroll(-1000)" class="has-shadow is-flex is-hidden-mobile has-background-light" style="position: absolute; left: 0; width: 2rem; height: 5rem; 
+        align-items: center; justify-content: center; opacity: 0.8;">
+          <div class="icon">
+            <i class="fas fa-angle-double-left"></i>
+          </div>
+        </div>
+
+        <div show.bind="state.blockchainScrollContainer.scrollLeft !== state.blockchainScrollContainer.scrollWidth" click.delegate="scrollToEnd()"
+             class="has-shadow is-flex has-background-light" style="position: absolute; right: 0; width: 2rem; height: 5rem; 
+        align-items: center; justify-content: center; opacity: 0.8;">
+          <div class="icon">
+            <i class="fas fa-angle-double-right"></i>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+
+
+
+
+
+
+</template>

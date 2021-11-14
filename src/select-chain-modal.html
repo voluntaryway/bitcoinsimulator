@@ -1,0 +1,125 @@
+<template class="modal is-active">
+
+  <div click.delegate="closeModal()" class="modal-background"></div>
+
+
+
+  <div class="modal-content has-background-white-bis">
+
+    <div show.bind="showNewChainOptions" class="is-size-7 has-text-centered has-text-danger has-background-white-ter" style="padding:0.5rem;">
+      <p>${state.t.newchain.l5[state.l]}</p>
+    </div>
+
+    <div class="hero is-primary is-small">
+      <div class="hero-body has-tri1" style="padding: 1rem 0.75rem; position: relative;">
+        <div show.bind="!showNewChainOptions">
+          <h1 class="title">
+            ${state.t.newchain.l1[state.l]}
+          </h1>
+
+          <h2 class="subtitle">
+            ${state.t.newchain.l2[state.l]}
+          </h2>
+        </div>
+
+        <div show.bind="showNewChainOptions">
+          <h1 class="title">
+            ${state.t.newchain.l7[state.l]}
+          </h1>
+
+        </div>
+
+      </div>
+    </div>
+
+
+    <div class="box is-marginless">
+
+
+
+      <form class="field" ref="ref_form">
+
+        <div show.bind="!showNewChainOptions">
+
+
+          <p class="label has-text-weight-normal is-light is-small">
+            <b>${state.t.newchain.l3[state.l]}</b>
+            ${state.t.newchain.l4[state.l]}
+          </p>
+
+          <div class="field">
+            <div class="control">
+              <input required value.bind="blockchain.name" class="input has-shadow input-borderless" style="border-bottom: 0" type="text"
+                     placeholder="${state.t.newchain.p1[state.l]}">
+            </div>
+          </div>
+        </div>
+
+        <div class="field" show.bind="showNewChainOptions">
+
+          <div class="field">
+            <p class="label has-text-weight-normal is-light is-small">
+              Name of the new Blockchain
+            </p>
+            <div class="label has-text-black">
+              ${blockchain.name}
+            </div>
+          </div>
+
+
+          <div class="field">
+            <p class="label has-text-weight-normal is-light is-small">
+              ${state.t.newchain.l6[state.l]}
+            </p>
+            <div class="control">
+              <input required value.bind="blockchain.difficulty" class="input has-shadow input-borderless" style="border-bottom: 0; width: 150px;"
+                     type="Number" min="2" max="10" placeholder="${state.t.newchain.p2[state.l]}">
+            </div>
+          </div>
+
+          <div class="field">
+            <p class="label has-text-weight-normal is-light is-small">
+              ${state.t.newchain.l8[state.l]}
+            </p>
+            <div class="control">
+              <input required value.bind="blockchain.blockReward" class="input has-shadow input-borderless" style="border-bottom: 0; width: 150px;"
+                     type="Number" min="0" step="0.01" placeholder="${state.t.newchain.p3[state.l]}">
+            </div>
+          </div>
+
+          <div class="field">
+            <p class="label has-text-weight-normal is-light is-small">
+              ${state.t.newchain.l9[state.l]}
+            </p>
+            <div class="control">
+              <input value.bind="blockchain.genesisReward" class="input has-shadow input-borderless" style="border-bottom: 0; width: 150px;"
+                     type="Number" min="0" step="0.1" placeholder="${state.t.newchain.p4[state.l]}">
+            </div>
+          </div>
+        </div>
+
+      </form>
+
+
+
+    </div>
+
+    <div class="box is-flex has-background-white-bis" style="justify-content: space-between;">
+      <div class="is-flex" style="align-items: flex-end">
+        <a click.delegate="connect('public')" class="is-link is-size-7">
+          ${state.t.newchain.b3[state.l]}
+        </a>
+      </div>
+      <div>
+        <button show.bind="!showNewChainOptions" disabled.bind="!blockchain.name" class="is-size-7 has-tri1 button is-primary material" click.delegate="connect()">${state.t.newchain.b1[state.l]}
+        </button>
+
+        <button show.bind="showNewChainOptions" class="has-tri1 is-size-7 button is-primary material" click.delegate="createBlockchain()">
+          ${state.t.newchain.b2[state.l]}
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+</template>

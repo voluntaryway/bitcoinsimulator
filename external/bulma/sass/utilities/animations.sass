@@ -1,0 +1,63 @@
+@keyframes spinAround
+  from
+    transform: rotate(0deg)
+  to
+    transform: rotate(359deg)
+
+@keyframes SlideInRight
+  from
+    transform: translateX(100%)
+  to
+    transform: translateX(0)
+
+@keyframes SlideOutLeft
+  from
+    transform: translateX(0)
+  to
+    transform: translateX(-100%)
+
+@keyframes FadeIn
+  from
+    opacity: 0
+  to
+    opacity: 1
+    
+
+.animate-slide-in-right.au-enter
+    transform: translateX(100%)
+  
+.animate-slide-in-right.au-enter-active 
+    animation: SlideInRight 1s
+
+.animate-slide-out-left.au-leave-active 
+    animation: SlideOutLeft 1s
+  
+.animate-fade-in.au-enter
+    opacity: 0
+
+.animate-fade-in.au-enter-active
+    animation: FadeIn 0.75s
+
+.animate-gradient 
+  background: repeating-linear-gradient(to right, $primary 0%, $info 50%, $primary 100%)
+  background-size: 200% auto
+  background-position: 0 100%
+  animation: gradient 1s infinite
+  animation-fill-mode: forwards
+  animation-timing-function: linear
+
+.gradient-is-grey 
+  background: repeating-linear-gradient(to right, $grey-lighter 0%, rgb(200,200,200) 50%, $grey-lighter 100%)
+  background-size: 200% auto
+  background-position: 0 100%
+
+.gradient-is-light-grey 
+  background: repeating-linear-gradient(to right, $white 0%, rgb(240,240,240) 50%, $white 100%)
+  background-size: 200% auto
+  background-position: 0 100%
+
+@keyframes gradient 
+  0% 
+    background-position: 0 0
+  100% 
+    background-position: -200% 0

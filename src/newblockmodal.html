@@ -1,0 +1,90 @@
+<template class="modal is-active">
+
+  <div class="modal-background"></div>
+
+  <div class="modal-content has-background-white-bis">
+
+    <div class="hero is-primary is-small">
+      <div class="hero-body has-tri1" style="padding: 1rem 0.75rem; position: relative;">
+        <div>
+          <h1 class="title">
+            ${state.t.newblock.l1[state.l]}
+            <span class="is-size-8">${moment(state.receivedBlock.createdAt).format('D/M/YY HH:mm:ss')}</span>
+          </h1>
+
+          <h2 class="subtitle">
+            ${state.t.newblock.l2[state.l]} ${state.receivedBlock.miner.name}
+          </h2>
+        </div>
+
+      </div>
+    </div>
+
+    <p class="has-text-centered p-75" style="border-bottom: 1px solid lightgrey">${state.receivedBlock.transactions.length}
+      ${state.t.block.l2[state.l]}
+    </p>
+
+    <div class="field" style="margin:0; flex-grow: 1; height: 159px; overflow-y: auto">
+
+      <table show.bind="state.receivedBlock.transactions.length" class="table  is-hoverable is-fullwidth" style="margin: 0">
+
+        <tbody class="has-text-weight-semibold has-text-grey">
+          <tr repeat.for="t of state.receivedBlock.transactions" style="padding: 0.5rem 0">
+            <td>
+              <div show.bind="t.sender.publicKey == '0'">New</div>
+              <div show.bind="t.sender.publicKey !== '0'">${t.sender.name}</div>
+              <div show.bind="t.sender.publicKey == '0'" class="is-size-7 has-text-weight-normal">Block Reward</div>
+              <div show.bind="t.sender.publicKey !== '0'" class="is-size-7 has-text-weight-normal">${t.sender.publicKey.substring(2,12)}...</div>
+            </td>
+
+            <td class="has-text-info" style="vertical-align:middle">
+
+              <i class="fas fa-long-arrow-alt-right"></i>
+
+            </td>
+
+            <td>
+              <div>${t.recipient.name}</div>
+              <div class="is-size-7 has-text-weight-normal">${t.recipient.publicKey.substring(2,12)}...</div>
+            </td>
+
+            <td class="has-text-weight-semibold has-text-right">
+              <div>${t.amount}</div>
+              <div class="is-size-7 has-text-weight-normal">BTC</div>
+            </td>
+
+
+          </tr>
+        </tbody>
+      </table>
+
+      <p show.bind="!state.receivedBlock.transactions.length" class="label is-small has-text-weight-normal">
+        No transactions.
+      </p>
+
+    </div>
+
+    <div class="p-75" style="border-top: 1px solid lightgrey;">
+      <p class=" is-size-7">${state.t.block.l1[state.l]}</p>
+      <p class=" is-size-8 has-text-dark">${state.receivedBlock.previoushash}</p>
+    </div>
+
+    <div class="field p-75 is-marginless" style="border-top: 3px solid orange">
+      <p class=" is-size-7">Hash</p>
+      <p class=" is-size-8 has-text-black ">${state.receivedBlock.hash}</p>
+
+    </div>
+
+
+    <div class="field p-75">
+      <div class="has-text-right">
+        <button class="button has-tri1 is-size-7 is-primary material" click.delegate="checkBlockchain()">
+          ${state.t.newblock.l3[state.l]}
+        </button>
+      </div>
+    </div>
+
+
+  </div>
+
+</template>

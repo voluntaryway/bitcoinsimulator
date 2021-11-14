@@ -1,0 +1,132 @@
+<template>
+
+
+  <div class="columns is-marginless is-centered">
+
+    <div class="column is-two-thirds">
+
+
+      <div class="box">
+        <div class="field">
+          <p class="label">${state.t.transaction.l1[state.l]}</p>
+          <p class="label has-text-weight-normal is-light is-small">
+            ${state.t.transaction.l2[state.l]}
+          </p>
+        </div>
+
+        <div class="field">
+
+
+          <div class="is-flex" style="padding: 0.75rem 0;align-items: center">
+
+            <div class="has-text-centered" style="flex-grow:2; min-width: 80px;">
+
+              <div show.bind="!fakeSender">
+                <div class="has-text-weight-semibold">
+                  ${state.name}
+                </div>
+                <div class="is-hidden-mobile">
+                  ${state.publicKey.substring(2,12)}...
+                </div>
+                <div>
+                  <a click.delegate="fakeSender = true" class="is-link is-size-8">
+                    ${state.t.transaction.l3[state.l]}
+                  </a>
+
+                </div>
+              </div>
+
+              <div show.bind="fakeSender" class="control" style="width: 80%;max-width: 300px;">
+                <input value.bind="inputSenderName" input.delegate="transaction.signature = undefined" class="input input-borderless" type="text"
+                       placeholder="${state.t.transaction.p1[state.l]}">
+
+
+              </div>
+            </div>
+
+            <div>
+
+              <span class="icon has-text-info">
+                <i class="fas fa-long-arrow-alt-right"></i>
+              </span>
+
+            </div>
+
+
+            <div class="is-flex" style="flex-grow:1; justify-content: center">
+
+              <div class="control" style="width: 80%;max-width: 300px;">
+                <input value.bind="transaction.recipient.name" input.delegate="transaction.signature = undefined" class="input input-borderless"
+                       type="text" placeholder="${state.t.transaction.p2[state.l]}">
+              </div>
+
+            </div>
+
+
+            <div style="width: 80px;">
+              <div class="control has-icons-left">
+                <span class="icon is-small is-left has-text-info">
+                  <i class="fab fa-bitcoin"></i>
+                </span>
+
+                <input required class="input input-borderless" input.delegate="transaction.signature = undefined" type="number"
+                       min="0.1" step="0.1" placeholder="BTC" value.bind="transaction.amount">
+              </div>
+            </div>
+
+
+
+          </div>
+
+
+        </div>
+
+        <div show.bind="!transaction.signature" class="field">
+          <div class="has-text-right">
+            <button disabled.bind="!(transaction.recipient.name && (!fakeSender || inputSenderName) && transaction.amount > 0)" class="button is-primary material"
+                    click.delegate="signTransaction()">
+              ${state.t.transaction.l4[state.l]}
+            </button>
+          </div>
+        </div>
+
+        <div show.bind="transaction.signature">
+
+          <div class="field">
+            <p class="label">Digital Signature</p>
+            <p class="is-size-7 has-text-weight-semibold" style="max-width:300px">${transaction.signature}</p>
+            <p class="label is-small has-text-weight-normal" style="margin-top:0.5rem;">
+              ${state.t.transaction.l5[state.l]}
+            </p>
+
+          </div>
+
+          <div class="field">
+            <div class="has-text-right">
+              <div show.bind="invalidBalance" class="has-text-danger is-size-7" style="padding-bottom: 0.5rem;">
+                ${state.t.transaction.l6[state.l]}
+              </div>
+              <button class="button is-primary material" click.delegate="sendTransaction()">
+                ${state.t.transaction.l7[state.l]}
+              </button>
+            </div>
+
+            <p show.bind="err" class="has-text-danger has-text-right label is-small has-text-weight-normal" style="padding-top:0.5rem;">${err}</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+  </div>
+
+
+  <div style="margin-top:3rem;"></div>
+
+
+</template>

@@ -1,0 +1,334 @@
+<template>
+
+  <require from="./newblockmodal"></require>
+  <require from="./select-chain-modal"></require>
+  <require from="./resetkeysmodal"></require>
+
+  <!-- <require from="./resources/value-converters/round"></require> -->
+
+  <section class="hero is-primary is-small ${state.page.explanation ? 'sticky' : ''} ${state.page.erklärung ? 'sticky' : ''}"
+           style="z-index: 9999999">
+    <div class="hero-body has-tri1" style="padding:0">
+
+      <div class="has-shadow" style="border-bottom: 1px solid lightgrey; padding: 0.5rem 0.75rem 0.5rem 0.75rem;">
+
+        <div class="is-flex " style="justify-content:space-between;">
+          <div>
+            <a class="has-text-weight-semibold" route-href="route: blockchain">Bitcoin Simulator</a>
+            |
+
+
+            <a show.bind="!state.page.explanation && !state.page.erklärung" class="has-text-info is-size-7 has-text-weight-semibold"
+               click.delegate="routeTutorial()">
+              ${state.t.app.n1[state.l]}
+            </a>
+
+            <span show.bind="state.page.explanation || state.page.erklärung" class="is-size-7">
+              Tutorial
+            </span>
+          </div>
+
+          <div>
+            <a click.delegate="changeLanguage('ger')" class="${ state.l === 'ger' ? 'has-text-weight-semibold has-text-info' : ''}">de</a>
+            |
+            <a click.delegate="changeLanguage('eng')" class="${ state.l === 'eng' ? 'has-text-weight-semibold has-text-info' : ''}">en</a>
+          </div>
+
+
+        </div>
+
+      </div>
+
+
+      <div show.bind="!state.page.explanation && !state.page.erklärung" class="has-text-weight-semibold" style="font-size: 12px; color: black; padding: 0.5rem 0.75rem 0 0.75rem;">
+        ${state.t.app.reminder[state.l]}
+      </div>
+
+
+
+      <div show.bind="state.page.wallet || state.page.block || state.page.blockchain || state.page.transaction " class="p-75">
+        <div show.bind="state.name && state.privateKey" class="columns" style="margin:0 -0.75rem;">
+
+
+          <div class="column container is-flex" style="justify-content: space-between; flex-direction: column">
+
+            <a class="subtitle is-size-5 link" style="margin-bottom: 0; width: fit-content" route-href="route: wallet">
+              <span class="has-text-weight-semibold"> ${state.name}</span>'s Wallet
+            </a>
+
+            <div>
+              <p>${state.t.app.h3[state.l]} : <span class="has-text-info is-size-5">${state.lastBlock.balanceMap[state.name].toFixed(2)
+                  || 0.00 }</span>
+                BTC</p>
+              <p class="is-size-8 has-text-white-bis">${state.t.app.h4[state.l]}</p>
+            </div>
+
+          </div>
+
+          <div class="column container has-text-right">
+            <p class="is-size-7 has-text-weight-bold">
+              <a click.delegate="state.showResetKeys = true" style="margin-right: 0.25rem;">
+                <i class="far fa-trash-alt"></i>
+              </a>
+              ${state.t.app.k1[state.l]}
+            </p>
+            <h2 show.bind="state.privateKey" class="is-hidden-tablet is-size-8 subtitle is-blurred" style="margin: 0; margin-top:0.25rem; margin-bottom: -0.75rem; cursor: pointer;">
+              ${state.privateKey}
+            </h2>
+            <h2 show.bind="state.privateKey" class="is-hidden-mobile subtitle is-blurred" style="margin-bottom: 0.5rem; cursor: pointer;">
+              ${state.privateKey}
+            </h2>
+            <p class="is-hidden-mobile is-size-7 has-text-weight-bold">${state.t.app.k2[state.l]}</p>
+            <h2 show.bind="state.privateKey" class="is-hidden-mobile subtitle" style="margin-bottom: 0;">
+              ${state.publicKey.substring(2,66)}
+            </h2>
+
+          </div>
+
+          <!-- <div class="is-flex" show.bind="!state.privateKey" style="align-items: center; justify-content: center">
+          <button class="button is-info is-outlined" click.delegate="generateKeys()">Erzeuge Schlüsselpaar</button>
+        </div> -->
+
+        </div>
+
+        <div show.bind="!state.privateKey" class="has-text-centered" style="padding: 0.5rem 0 1rem 0;">
+          <!-- <h1 class="title">Jetzt Mitmachen</h1> -->
+          <h2>
+
+
+            <p class="is-size-5 ">
+              ${state.t.app.h1[state.l]}
+            </p>
+            <p class="is-size-7" style="margin-top:0.25rem;">
+              ${state.t.app.h2[state.l]}
+            </p>
+
+            <div class="if-flex">
+
+              <p class="p-75 has-text-weight-semibold" style="margin-top: 0.5rem;">${state.t.app.b4[state.l]}</p>
+              <a class="button is-info material is-size-7 " click.delegate="routeTutorial()">
+                ${state.t.app.b2[state.l]}
+              </a>
+
+              <p class="p-75 has-text-weight-semibold" style="margin-top: 0.5rem;">${state.t.app.b3[state.l]}</p>
+              <a class="button is-info material is-size-7 " route-href="route: wallet">
+                ${state.t.app.b1[state.l]}
+              </a>
+
+
+            </div>
+
+            <!-- <div class="is-flex" style="justify-content: center;"> -->
+
+            <div if.bind="!state.page.wallet" style="margin: auto; margin-top:1.5rem;max-width: 400px;">
+              <p class="p-75 has-text-weight-semibold" style="margin-top: 0.5rem;">${state.t.app.b5[state.l]}</p>
+              <div class="has-shadow" style="position:relative;
+                      padding-bottom:52.9%;
+                      height:0;
+                      overflow:hidden;
+                      ">
+                <iframe style="position:absolute;
+                        top:0;
+                        left:0;
+                        width:100%;
+                        height:100%;
+                        " width="100%" height="100%" src="https://www.youtube.com/embed/JAaHgrIt8sE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+              </div>
+            </div>
+
+
+
+
+
+          </h2>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <section show.bind="state.page.wallet || state.page.block || state.page.blockchain || state.page.transaction ">
+
+    <div class="is-flex has-background-white-ter has-text-centered" style="padding: 0.5rem; justify-content: center; border-bottom: 1px solid rgb(230,230,230);  ">
+      <div>
+        <span class="is-size-8">${state.t.app.n2[state.l]}</span>
+        <span show.bind="state.blockchain.name !== 'public'" class="has-text-weight-semibold">${state.blockchain.name}</span>
+        <span show.bind="state.blockchain.name === 'public'" class="has-text-weight-semibold">${state.t.app.n3[state.l]}</span>
+        <span class="is-size-8">Blockchain</span>
+        <a click.delegate="state.showChangeBlockchain = true" class=" is-size-7 has-text-info " style="margin-left: 0.5rem;">
+          <i class="fas fa-exchange-alt"></i>
+          <span class="is-size-7 has-text-weight-semibold " style="margin-left: 0.2rem;">${state.t.app.n4[state.l]}</span>
+        </a>
+
+        <!-- <a click.delegate="state.showLink = true" class="is-size-7 has-text-info icon">
+          <i class="fas fa-share-alt"></i>
+        </a> -->
+
+      </div>
+    </div>
+
+    <div>
+      <!-- <div class="is-size-8 has-text-grey-light p-75 has-text-centered">${state.blockchainName || "Öffentliche"} Blockchain</div> -->
+      <div show.bind="state.privateKey && state.name" class="tabs has-text-black is-small is-marginless">
+        <ul>
+          <li class="${state.page.blockchain ? 'is-active' : ''}"><a route-href="route: blockchain">
+              ${state.t.app.tab1[state.l]}
+            </a></li>
+          <li class="${state.page.block ? 'is-active' : ''}"><a route-href="route: block">Block
+              Mining
+            </a></li>
+          <li class="${state.page.transaction ? 'is-active' : ''}"><a route-href="route: transaction">
+              ${state.t.app.tab3[state.l]}
+            </a></li>
+
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+
+
+  <!-- <router-view ref="state.refRouterView" if.bind="state.lastBlock"></router-view> -->
+  <router-view ref="state.refRouterView"></router-view>
+
+
+  <newblockmodal show.bind="state.receivedBlock"></newblockmodal>
+  <resetkeysmodal show.bind="state.showResetKeys"></resetkeysmodal>
+  <select-chain-modal if.bind="state.showChangeBlockchain"></select-chain-modal>
+
+
+  <!-- <div class="p75" style="position: fixed; bottom: 0; right: 0; width: 300px; height: 169px; margin: 0.5rem;">
+      <iframe src="https://www.youtube.com/embed/JAaHgrIt8sE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div> -->
+
+  <div show.bind="state.privateKey && !state.page.explanation && !state.page.erklärung" class="p-75" style="border-top:1px solid lightgrey;">
+
+    <div class="label">
+      Wallets Online
+      <span class="is-size-7">(${state.t.app.f1[state.l]})</span>
+    </div>
+
+    <div class="field is-grouped is-grouped-multiline">
+
+      <div class="control" repeat.for="w of state.walletsOnline | keys">
+        <div class="tags has-addons">
+          <span class="tag is-dark">${w}</span>
+          <span class="tag is-info">${state.lastBlock.balanceMap[w].toFixed(2) || 0} BTC</span>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="is-flex is-size-7 has-text-grey box is-marginless" style=" flex-direction: column; margin-top:2rem;">
+    <div>
+      Feedback or Questions?
+    </div>
+    <div>
+
+      <div class="field is-grouped is-grouped-multiline" style="margin-top:0.5rem">
+
+        <div class="control has-shadow">
+          <div class="tags has-addons">
+            <span class="tag is-light"><i class="far fa-envelope"></i></span>
+            <span class="tag is-white">
+              <a href="mailto:voluntaryway@gmail.com">Email</a>
+            </span>
+          </div>
+        </div>
+
+        <div class="control has-shadow">
+          <div class="tags has-addons">
+            <span class="tag is-light">
+              <i class="fab fa-discord"></i>
+            </span>
+            <span class="tag is-white">
+              <a href="https://discord.gg/zR4REVE" target="_blank">Discord Chat</a>
+            </span>
+          </div>
+        </div>
+
+      </div>
+
+
+
+    </div>
+
+    <div style="margin-top: 0.75rem; margin-bottom: 0.25rem;">
+      Support this Project
+    </div>
+
+    <div class="field is-grouped is-grouped-multiline" style="margin-top: 0.5rem;">
+
+      <div class="control has-shadow">
+
+        <div class="tags has-addons">
+          <span class="tag is-light">
+            <i class="fas fa-bolt"></i>
+          </span>
+          <span class="tag is-white">
+            <a href="https://tippin.me/@mcsvi" class="has-text-black" target="_blank">Tip via Lightning Network</a>
+          </span>
+        </div>
+
+      </div>
+
+      <div class="control has-shadow">
+
+        <div class="tags has-addons">
+          <span class="tag is-light">
+            <i class="fab fa-paypal"></i>
+          </span>
+          <span class="tag is-white">
+            <a href="https://www.paypal.com/donate?hosted_button_id=J2HKYQZEM4CFU" class="has-text-black" target="_blank">Tip via Paypal</a>
+          </span>
+        </div>
+
+      </div>
+
+
+
+
+
+
+    </div>
+
+
+    <div>
+      BTC: <span class="has-text-black has-text-weight-semibold">bc1qyfu98f8llht3gjnfj6gzptj9xtvysq7nzrjz2w</span>
+    </div>
+    <div style="margin-top:0.25rem;">
+      BCH: <span class="has-text-black has-text-weight-semibold">qqtt54l6hz47hx7k7cxcju66d5yjhy06h5dg982m86</span>
+    </div>
+
+
+  </div>
+
+
+  <div class="p-75" style="margin-bottom: 2rem; max-width: 300px;">
+    <p class="" style="margin: 0.25rem 0;">Introduction Video</p>
+    <div class="has-shadow" style="position:relative;
+            padding-bottom:52.9%;
+            height:0;
+            overflow:hidden;
+            ">
+      <iframe style="position:absolute;
+              top:0;
+              left:0;
+              width:100%;
+              height:100%;
+              " width="100%" height="100%" src="https://www.youtube.com/embed/JAaHgrIt8sE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen></iframe>
+    </div>
+  </div>
+
+
+
+
+
+</template>

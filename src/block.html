@@ -1,0 +1,282 @@
+<template>
+
+
+  <div class="columns is-marginless is-centered">
+
+    <div class="column is-two-thirds" style="margin-bottom: 3rem;">
+
+      <div class="label has-text-grey-light">${state.t.block.h2[state.l]}</div>
+
+      <div class="hero ${blockMined ? 'is-success' : 'is-primary'} is-small has-shadow">
+        <div class="hero-body has-tri1" style="padding: 1rem 0.75rem">
+
+          <h1 class="title">
+            <div show.bind="!state.lastBlock.dummy">
+              Block ${state.lastBlock.depth + state.depthOffset + 1}
+            </div>
+
+            <div show.bind="state.lastBlock.dummy">
+              Genesis Block
+            </div>
+          </h1>
+
+          <h2 class="subtitle">
+            <div show.bind="!state.lastBlock.dummy">
+              ${state.t.block.h1[state.l]}
+              <span class="has-text-info">${state.lastBlock.miner.name}'s</span>
+              Block ${state.lastBlock.depth + state.depthOffset}
+
+            </div>
+
+            <div show.bind="state.lastBlock.dummy">
+              starts a new Blockchain
+            </div>
+
+          </h2>
+
+        </div>
+      </div>
+
+      <div class="box is-marginless has-background-white-bis ">
+
+        <div class="field is-marginless">
+          <p class=" has-text-primary is-marginless is-size-7">${state.t.block.l1[state.l]}</p>
+          <p class=" has-text-black is-marginless is-size-7">${state.lastBlock.hash}</p>
+
+        </div>
+
+      </div>
+      <div class="box is-marginless  ">
+        <div class="field">
+          <p class="label has-text-primary is-marginless">${state.t.block.l2[state.l]}</p>
+
+          <table class="table is-striped is-hoverable is-fullwidth is-marginless">
+            <thead>
+              <tr>
+                <td>Sender</td>
+                <td></td>
+                <td>${state.t.block.t1[state.l]}</td>
+                <td class="has-text-right" style="width:74px;">${state.t.block.t2[state.l]}</td>
+
+              </tr>
+            </thead>
+
+            <tbody class="has-text-weight-semibold has-text-grey">
+              <tr style="padding: 0.5rem 0">
+                <td>
+                  <div>new</div>
+                  <div class="is-size-7 has-text-weight-normal">${state.t.block.t3[state.l]}</div>
+                </td>
+
+                <td class="has-text-info" style="vertical-align:middle">
+
+                  <i class="fas fa-long-arrow-alt-right"></i>
+
+                </td>
+
+                <td>
+                  <div>${state.name}</div>
+                  <div class="is-size-7 has-text-weight-normal">${state.publicKey.substring(2,20)}...</div>
+                </td>
+
+                <td class="has-text-weight-semibold has-text-right">
+                  <div show.bind="state.lastBlock.dummy">${state.blockchain.genesisReward} </div>
+                  <div show.bind="!state.lastBlock.dummy">${state.blockchain.blockReward}</div>
+
+                  <div class="is-size-7 has-text-weight-normal">BTC</div>
+                </td>
+
+
+              </tr>
+              <tr repeat.for="t of transactions" style="padding: 0.5rem 0">
+                <td>
+                  <div>${t.sender.name}</div>
+                  <div class="is-size-7 has-text-weight-normal">${t.sender.publicKey.substring(2,20)}...</div>
+                </td>
+
+                <td class="has-text-info" style="vertical-align:middle">
+
+                  <i class="fas fa-long-arrow-alt-right"></i>
+
+                </td>
+
+                <td>
+                  <div>${t.recipient.name}</div>
+                  <div class="is-size-7 has-text-weight-normal">${t.recipient.publicKey.substring(2,20)}...</div>
+                </td>
+
+                <td class="has-text-weight-semibold has-text-right">
+                  <div>${t.amount}</div>
+                  <div class="is-size-7 has-text-weight-normal">BTC</div>
+                </td>
+
+
+              </tr>
+            </tbody>
+          </table>
+
+          <div show.bind="!transactions.length" class="box has-tri1 is-size-7 is-small has-text-weight-normal has-text-grey" style="margin-top: 1rem; background: rgba(237, 188, 100,0.2)">
+            ${state.t.block.l3[state.l]}
+          </div>
+
+
+
+        </div>
+
+      </div>
+
+      <div class="box has-background-white-bis">
+
+        <div class="field">
+          <p class="label has-text-primary">${state.t.block.l4[state.l]}</p>
+          <p class="label has-text-weight-normal is-light is-small">
+            ${state.t.block.l5[state.l]}
+            ${state.blockchain.difficulty}
+            ${state.t.block.l6[state.l]}
+
+          </p>
+
+          <div class="control">
+            <input ref="nonceInput" value.bind="nonce" class="input has-shadow input-borderless" style="border-bottom: 0" type="number" placeholder="${state.t.block.p1[state.l]}"
+                   input.delegate="calculateHash()">
+          </div>
+
+          <div class="field" style="padding: 0.75rem 0;">
+            <input input.delegate="autoMine()" id="switchThinColorDefault" type="checkbox" name="switchThinColorDefault" class="switch is-thin is-success">
+            <label class="label is-size-7" for="switchThinColorDefault">Auto Mining</label>
+            <div class="is-size-8 has-text-grey-light" style="margin-top: 0.25rem;">${state.t.block.l8[state.l]} ${Math.pow(16, state.blockchain.difficulty)} Nonces</div>
+          </div>
+
+
+        </div>
+
+        <div show.bind="hash" class="field">
+          <p class="has-text-centered ${blockMined ? 'has-text-success' : 'has-text-danger'}">${hash}</p>
+
+        </div>
+
+        <div show.bind="blockMined" class="field has-text-centered">
+          <p class="label is-small has-text-weight-medium">${state.t.block.l7[state.l]}</p>
+          <button click.delegate="submitBlock()" class="${blockSent ? 'is-loading' : ''} button is-success is-outlined">${state.t.block.b1[state.l]}</button>
+        </div>
+
+      </div>
+
+
+      <div class="hero is-small has-shadow" style="margin-top:2rem;">
+
+        <div class="hero-body has-tri1" style="padding: 1.5rem 0.75rem;">
+          <p class="title"> Mempool</p>
+          <p class="subtitle is-7 ">
+            ${state.t.block.l9[state.l]}
+          </p>
+
+        </div>
+      </div>
+
+      <div class="box">
+
+        <div show.bind="state.mempool.length" class="field">
+          <div class="has-text-right">
+            <button class="button is-size-7 is-primary material" click.delegate="addAllToBlock()">
+              ${state.t.block.b2[state.l]}
+
+            </button>
+          </div>
+        </div>
+
+        <div class="field">
+
+          <table class="table is-striped is-hoverable is-fullwidth">
+            <thead>
+              <tr>
+                <td class="">Sender</td>
+                <td></td>
+                <td class="">${state.t.block.t1[state.l]}</td>
+                <td style="width: 57px">BTC</td>
+                <td class="is-hidden-tablet has-text-right" style="width: 85px">Signature</td>
+                <td class="is-hidden-mobile has-text-right">Signature</td>
+
+              </tr>
+            </thead>
+
+            <tbody class="has-text-weight-semibold has-text-grey">
+              <tr repeat.for="t of state.mempool" style="padding: 0.5rem 0">
+                <td class="max-width-50" style="vertical-align:middle">
+                  <div>${t.sender.name}</div>
+                  <div class="is-hidden-mobile is-size-7 has-text-weight-normal">${t.sender.publicKey.substring(2,12)}...</div>
+                </td>
+
+                <td class="has-text-info is-paddingless" style="vertical-align:middle">
+
+                  <i class="fas fa-long-arrow-alt-right"></i>
+
+                </td>
+
+                <td class="max-width-50" style="vertical-align:middle">
+                  <div>${t.recipient.name}</div>
+                  <div class="is-hidden-mobile is-size-7 has-text-weight-normal">${t.recipient.publicKey.substring(2,12)}...</div>
+                </td>
+
+                <td class="has-text-weight-semibold" style="vertical-align:middle">
+                  <div>${Math.round(t.amount*10)/10}</div>
+                </td>
+
+                <th class="has-text-right" style="vertical-align: middle; max-width: 81px">
+                  <div show.bind="!t.checked" click.delegate="verifySignature(t)">
+                    <a class="has-text-primary">${state.t.block.l11[state.l]}</a>
+                  </div>
+                  <div show.bind="t.checked">
+
+                    <div show.bind="t.valid" class="is-size-7">
+
+                      <p class="has-text-success">${state.t.block.l12[state.l]}</p>
+                      <a click.delegate="addToBlock(t, true)">Add to Block</a>
+
+
+                    </div>
+
+                    <div show.bind="!t.valid" class="is-size-7">
+
+                      <div show.bind="!t.signatureValid">
+                        <p class="has-text-danger">${state.t.block.l13[state.l]}</p>
+                        <a click.delegate="addToBlockSingle(t)">${state.t.block.l14[state.l]}</a>
+                      </div>
+
+                      <div show.bind="t.signatureValid">
+                        <p class="has-text-danger">${state.t.block.l15[state.l]}</p>
+                        <a click.delegate="addToBlockSingle(t)">${state.t.block.l14[state.l]}</a>
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                </th>
+
+              </tr>
+            </tbody>
+          </table>
+
+
+
+          <p show.bind="!state.mempool.length" class="label is-small has-text-weight-normal">
+            ${state.t.block.l10[state.l]}
+          </p>
+
+
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+  </div>
+
+
+
+
+
+</template>

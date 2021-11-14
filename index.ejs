@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>
+    <%- htmlWebpackPlugin.options.metadata.title %>
+  </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="The first realistic blockchain simulator that shows you how Bitcoin really works. An interactive tutorial helps newbies to get started.">
+
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:creator" content="@mcsvi">
+  <meta name="twitter:title" content="Bitcoin Blockchain Simulator: An interactive learning tool">
+  <meta name="twitter:description" content="Learn interactively how Bitcoin works. A tutorial helps you to get started.">
+  <meta name="twitter:image" content="https://i.redd.it/gba0k6mnn4y21.png">
+
+  <meta itemprop="name" content="Bitcoin Blockchain Simulator: An interactive learning tool">
+  <meta itemprop="description" content="Learn interactively how Bitcoin works. A tutorial helps you to get started.">
+  <meta itemprop="image" content="https://i.redd.it/gba0k6mnn4y21.png">
+
+  <meta property="og:title" content="Bitcoin Blockchain Simulator: An interactive learning tool">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.bitcoinsimulator.tk">
+  <meta property="og:image" content="https://i.redd.it/gba0k6mnn4y21.png">
+  <meta property="og:description" content="Learn interactively how Bitcoin works. A tutorial helps you to get started.">
+
+  <base href="<%- htmlWebpackPlugin.options.metadata.baseUrl %>">
+
+  <link rel="stylesheet" href="dist/styles.css">
+  <link rel="stylesheet" href="external/mathlib.css">
+  <link rel="stylesheet" href="external/css/all.min.css">
+
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  <script src="external/moment.js" defer></script>
+  <script src="external/mathlib.js" defer></script>
+
+</head>
+
+<body aurelia-app="main">
+
+
+  <div style="display: flex; justify-content: center; align-items: center; width: 100%; height: 100vh;">
+    <div style="color:rgba(100, 149, 237,1); font-size: 30px; text-align: center; height: 50%;">
+      <span style="color: rgba(237, 188, 100,1)">B</span>itcoin <span style="color: rgba(237, 188, 100,1)">S</span>imulator</span>
+      <p style="color: lightgrey; font-size:20px"> Web App</p>
+      <p style="color: lightgrey; margin-top: 5rem; font-size:10px"> Loading Blockchain...</p>
+    </div>
+  </div>
+
+</body>
+
+</html>

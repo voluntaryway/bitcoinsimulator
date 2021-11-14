@@ -1,0 +1,1844 @@
+<template>
+  <require from="./curve"></require>
+
+
+  <div class="columns is-marginless is-paddingless is-centered" style="padding-top:0.5rem; padding-bottom: 2rem; min-height:calc(100vh - 158px)">
+
+    <div click.delegate="shownav = true" show.bind="!shownav" class="is-flex is-hidden-tablet p-75 has-text-weight-semibold is-size-6"
+         style="border-bottom: 1px solid lightgrey; justify-content: space-between">
+      <a>
+        ${menu[page-1]}
+      </a>
+
+      <a>
+        <i class="fas fa-chevron-down"></i>
+      </a>
+    </div>
+
+    <div class="column is-one-fifth ${shownav ? '' : 'is-hidden-mobile'} " ">
+      <aside class=" menu sticky " style=" top: 3.7rem; margin-left: 0.5rem; ">
+
+        <div class=" has-text-centered has-text-weight-semibold ">
+          <a click.delegate=" switchLanguage() ">English version</a>
+        </div>
+
+        <p class=" menu-label ">
+          Einführung
+        </p>
+        <ul class=" menu-list ">
+          <li repeat.for=" i of 2 " click.delegate=" goToPage(i) ">
+            <a class=" ${page===i +1 ? 'is-active' : '' } ">
+              <span class=" ${page>= i+1 ? '' : 'has-text-grey-light'}">${menu[i]}</span>
+      <!-- <i if.bind="page > i+2" class="fas fa-check has-text-success is-size-7"></i> -->
+      </a>
+      </li>
+      </ul>
+      <p class="menu-label">
+        Nachweis der Identität
+      </p>
+      <ul class="menu-list">
+
+        <li repeat.for="i of 5" click.delegate="goToPage(i + 2)">
+          <a class="${page === i+3 ? 'is-active' : ''}">
+            <span class="${page >= i+3 ? '' : 'has-text-grey-light'}">${menu[i+2]}</span>
+            <!-- <i if.bind="page > i+2" class="fas fa-check has-text-success is-size-7"></i> -->
+          </a>
+        </li>
+
+      </ul>
+      <p class="menu-label">
+        Dezentrale Datenbank
+      </p>
+      <ul class="menu-list">
+        <li repeat.for="i of 6" click.delegate="goToPage(i + 7)">
+          <a class="${page === i+8 ? 'is-active' : ''}">
+            <span class="${page >= i+8 ? '' : 'has-text-grey-light'}">${menu[i+7]}</span>
+            <!-- <i if.bind="page > i+2" class="fas fa-check has-text-success is-size-7"></i> -->
+          </a>
+        </li>
+      </ul>
+
+      <a class="button material is-info has-text-weight-semibold" style="margin-top:1rem;" route-href="route: blockchain">
+        <i class="fas fa-long-arrow-alt-left"></i>
+        <span style="padding-left:0.5rem;">Simulator</span>
+      </a>
+      </aside>
+    </div>
+
+    <div class="column columns is-marginless is-paddingless">
+      <div class="column is-paddingless" style="margin-bottom: 4rem; max-width: 800px">
+
+
+        <div show.bind="page == 0">
+          <div class="hero is-grey is-small has-shadow">
+            <div class="hero-body has-tri1" style="padding: 1rem 0.75rem">
+
+              <h1 class="title">
+                Interaktives Tutorial
+              </h1>
+
+              <h2 class="subtitle">
+                Lerne Schritt für Schritt wie Bitcoin funktioniert.
+              </h2>
+
+            </div>
+          </div>
+
+          <div class="box">
+
+            <div class="is-flex tb" style="justify-content: center; margin: 2rem 0">
+
+              <div class="" style="align-items: flex-start; justify-content:center; min-width: 50px; padding-right: 1rem;">
+
+                <p class="tb">
+                  Dieses Tutorial richtet sich an jeden, der wissen möchte wie Bitcoin wirklich funktioniert. Dabei gehen die Inhalte weit
+                  über das hinaus, was in gängigen Einführungsartikeln üblich ist. Eine gewisse Tiefe ist notwendig, um der
+                  Komplexität des Themas gerecht zu werden. Es werden, abgesehen von einer Portion Neugier, keine Kenntnisse
+                  vorausgesetzt.
+                </p>
+
+                <p class="tb">
+                  Das Tutorial ist in einzelne Lerneinheiten unterteilt und lädt den Leser mithilfe interaktiver Elemente immer wieder zum
+                  Mitmachen ein. Viel Spaß!
+                </p>
+
+              </div>
+
+              <figure class="image" style="max-width: 300px; ">
+                <img src="/../external/logo.jpg">
+              </figure>
+
+            </div>
+
+            <div class="field p-75">
+              <div class="has-text-right">
+                <button class="button has-tri1 is-primary material" click.delegate="nextPage()">
+                  Los geht's
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div show.bind="page === 1">
+          <div class="hero is-grey is-small has-shadow">
+            <div class="hero-body has-tri1" style="padding: 1rem 0.75rem">
+
+              <h1 class="title">
+                Warum brauchen wir Bitcoin?
+              </h1>
+
+              <h2 class="subtitle">
+                Worum es hier eigentlich geht.
+              </h2>
+
+            </div>
+          </div>
+
+          <div class="box">
+
+            <p class="tb">
+              Als Bitcoin vor mehr als 10 Jahren das Licht der Welt erblickte, hätten wohl die wenigsten gedacht, dass ein paar zufällige
+              Zahlen auf einem Computer einmal mehrere tausend Euro wert sein würden. Seither haben viele von Bitcoin gehört,
+              ein paar haben es aktiv benutzt und einige wenige sind unsäglich reich damit geworden.
+            </p>
+
+            <p class="tb">
+              Heutzutage wird fast täglich mit Schlagwörtern wie 'Blockchain' oder 'Kryptowährung' um sich geworfen, aber kaum jemand scheint
+              Interesse daran zu haben die Technik dahinter zu thematisieren. Zeit, das zu ändern. In diesem interaktiven
+              Tutorial werden wir herausfinden, wie Bitcoin tatsächlich funktioniert und warum das so ein großes Ding ist.
+            </p>
+
+            <div class="is-flex" style="justify-content: center; margin-bottom: 1.5rem;">
+              <figure class="image has-shadow has-background-white" style="max-width: 300px;">
+                <img src="/../external/central.png">
+              </figure>
+
+            </div>
+
+            <p class="tb">
+              Wenn du heutzutage Geld versenden möchtest, benötigst du aller Wahrscheinlichkeit nach irgendeine Art Mittelsmann wie z.B
+              eine Bank oder Paypal. Solch eine zentrale Stelle bietet zwei wichtige Dienstleistungen. Sie behält den Überblick
+              über alle jemals aufgetretene Transaktionen mithilfe einer zentralen Datenbank und ist somit in der Lage zu
+              bestimmen, welche Person wie viel Guthaben zur Verfügung hat. Sie stellt außerdem sicher, dass nur der rechtmäßige
+              Kontobesitzer eine Überweisung vornehmen kann (Password Login, Tan).
+            </p>
+
+            <p class="tb">
+              Allerdings hat ein solches System auch eine Schwachstelle. Da die Transaktionsdatenbank zentral kontrolliert wird, kann sie
+              recht einfach manipuliert werden. Regierungen können die Kontrolle über dein Bankkonto erlangen (siehe Venezuela
+              oder Griechenland), Überweisungen können eingeschränkt werden oder wegen technischer Probleme ganz ausgesetzt
+              werden. Ganz zu schweigen von negativen Zinsen und schleichender Enteignung durch Inflation.
+
+
+            </p>
+
+
+
+            <div class="field p-75">
+              <div class="has-text-right">
+                <button class="button has-tri1 is-primary material" click.delegate="nextPage()">
+                  Zeig mir eine Alternative
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div show.bind="page === 2">
+          <div class="hero is-grey is-small has-shadow">
+            <div class="hero-body has-tri1" style="padding: 1rem 0.75rem">
+
+              <h1 class="title">
+                Weg mit dem Zwischenhändler
+              </h1>
+
+              <h2 class="subtitle">
+                Es gibt immer eine Alternative.
+              </h2>
+
+            </div>
+          </div>
+
+          <div class="box">
+
+            <p class="tb">
+              Wagen wir es und nehmen die Bank aus dem Spiel.
+            </p>
+
+            <div class="is-flex" style="justify-content: center; margin-bottom: 1.5rem;">
+              <figure class="image has-shadow has-background-white" style="max-width: 250px;">
+                <img src="/../external/central.png">
+              </figure>
+
+              <div class="is-flex has-text-weight-semibold has-text-black p-75 is-size-4" style="align-items: center; justify-content:center; min-width: 50px;">
+                <i class="fas fa-long-arrow-alt-right"></i>
+
+              </div>
+
+              <figure class="image has-shadow" style="max-width: 250px;">
+                <img src="/../external/distributed.png">
+              </figure>
+            </div>
+
+            <p class="tb">
+
+              Juhu! Die Bank ist weg und wir sind alle frei und unabhängig, oder? Schauen wir mal. Wir haben jetzt also ein Netzwerk aus
+              Computern, das jeden Teilnehmer potentiell mit jedem Anderen über das Internet verbindet. Kann jetzt also jeder
+              direkt Geld an den Computer des Empfängers senden?
+
+            </p>
+
+            <p class="tb">
+              Naja, nicht ganz. Es gibt ein Problem. Weißt du welches?
+            </p>
+
+            <a show.bind="!showProblems" click.delegate="showProblems= true" class="button is-size-7 is-primary material">
+              Zeigs mir
+            </a>
+
+            <div show.bind="showProblems">
+              <p class="tb has-text-weight-bold">
+                Eigentlich gibt es gleich zwei ernsthafte Probleme wenn Person A Geld an Person B senden möchte:
+              </p>
+
+              <div class="content tb">
+                <ul>
+                  <li style="padding-bottom:0.75rem;">
+                    Woher wissen wir ob Person A wirklich Person A ist und nicht Person C, die so tut als wäre sie Person A? Wir haben ja keine
+                    Bank mehr, die die Identität von Person A verifizieren könnte.
+                  </li>
+                  <li style="padding-bottom:0.75rem;">
+                    Woher wissen wir ob Person A genug Geld auf dem Konto hat, um eine Transaktion auszuführen? Wir haben ja keine Bank mehr,
+                    die das in ihrer zentralen Datenbank nachschauen könnte.
+                  </li>
+                </ul>
+              </div>
+
+              <p class="tb">
+                Was also tun? Die Bank zurück holen? Nicht so schnell. Lasst uns doch einmal schauen, ob uns ein bisschen Mathematik dabei
+                helfen kann, diese Probleme anders zu lösen.
+              </p>
+
+              <div class="field p-75">
+                <div class="has-text-right">
+                  <button class="button has-tri1 is-primary material" click.delegate="nextPage()">
+                    Bereit das erste Problem in Angriff zu nehmen
+                  </button>
+                </div>
+              </div>
+
+            </div>
+
+
+
+
+          </div>
+        </div>
+
+        <div show.bind="page === 3">
+          <div class="hero is-grey is-small has-shadow">
+            <div class="hero-body has-tri1" style="padding: 1rem 0.75rem">
+
+              <h1 class="title">
+                Digitale Identität
+              </h1>
+
+              <h2 class="subtitle">
+                Erstelle eine persönliche digitale Geldbörse.
+              </h2>
+
+            </div>
+          </div>
+
+          <div class="box ">
+
+            <p class="tb">
+              In einer Welt ohne Banken existieren offensichtlich auch keine Bankkonten mehr. Zuallererst müssen wir uns also eine Art
+              digitale Identität zulegen. Im Prinzip sind das zwei Dinge: So etwas wie eine Kontonummer und so etwas wie
+              ein Passwort. Wir nennen sie <b>Public Key</b> (Öffentlicher Schlüssel) und <b>Private Key
+              </b> (Privater Schlüssel). Zusammen bilden diese beiden Zahlen unseren digitalen Geldbeutel, den wir ab sofort
+              <b>Wallet</b> nennen.
+            </p>
+
+            <p class="tb">
+              Schauen wir mal woher sie kommen.
+            </p>
+
+
+            <p class="tb">
+              Alles beginnt mit einer zufälligen Zahl. Einer sehr großen zufälligen Zahl mit einer Länge von 256-bit. Das bedeutet eine
+              zufällige Aneinanderreihung von 256 Nullen und Einsen. Du kannst solch eine Zahl beispielsweise dadurch erzeugen,
+              dass du eine Münze 256 mal wirfst und eine '1' für jede Zahl und eine '0' für jeden Kopf notierst.
+            </p>
+
+            <div class="field">
+              <button class="is-size-7 button has-tri1 is-primary material" click.delegate="genRand()">
+                Erzeuge eine zufällige 256-bit Zahl
+              </button>
+            </div>
+
+            <div show.bind="rand2">
+              <label class="label is-small">Zufällige Zahl in Binärdarstellung</label>
+              <p class="tb has-text-weight-semibold is-size-7">
+                ${rand2}
+              </p>
+
+              <p class="tb">
+                Damit wir uns diese Zahl besser vorstellen können, wandeln wir sie in unser bekanntes Dezimalsystem um und erhalten:
+                <span class="has-text-weight-semibold is-size-7">${rand10}</span>. Das ist eine unfassbar große Zahl mit
+                mehr als 70 Stellen, was ungefähr der Anzahl aller Atome im Universum entspricht.
+              </p>
+
+              <p class="tb">
+                Um diese Zahl noch kompakter aufschreiben zu können, wandeln wir sie in das sogenannte Hexadezimalsystem um. Im Folgenden
+                verwenden wir ausschließlich diese Darstellung und nennen diese Zahl <b class="has-text-primary">Private
+                  Key
+                </b>:
+              </p>
+
+              <p class="tb has-text-weight-semibold  has-text-primary">
+                ${rand16}
+              </p>
+
+
+              <p class="tb">
+                Halte einen Moment inne und stell dir Folgendes vor: Diese spezielle Zahl oben hat noch niemals zuvor existiert und wird
+                nie wieder existieren, sobald du diese Seite verlässt oder eine neue Zahl erzeugst. Genauso wie du niemals
+                eine Münze 256 mal werfen und zweimal genau das gleiche Ergebnis erhalten wirst. Es gibt einfach unvorstellbar
+                viele Möglichkeiten, die es praktisch unmöglich machen.
+              </p>
+
+              <p class="tb">
+                Die gesamte Bitcoin Sicherheit basiert auf der Geheimhaltung dieses <b class="has-text-primary">Private Key</b>.
+                Wird er dir gestohlen oder verlierst du ihn, sind alle deine Bitcoin für immer verloren.
+              </p>
+
+              <div class="field p-75">
+                <div class="has-text-right">
+                  <button class="button has-tri1 is-primary material" click.delegate="nextPage()">
+                    Was mache ich damit?
+                  </button>
+                </div>
+              </div>
+
+            </div>
+
+
+
+
+          </div>
+        </div>
+
+
+        <div show.bind="page === 4">
+          <div class="hero is-grey is-small has-shadow">
+            <div class="hero-body has-tri1" style="padding: 1rem 0.75rem">
+
+              <h1 class="title">
+                Ungelöste Probleme in der Mathematik
+              </h1>
+
+              <h2 class="subtitle">
+                Einfach in eine Richtung, schwierig in die andere.
+              </h2>
+
+            </div>
+          </div>
+
+          <div class="box ">
+
+            <p class="tb">
+              <b>157 x 211 = ?</b>
+            </p>
+
+            <p class="tb">
+              Kannst du das berechnen? Taschenrechner sind erlaubt.
+            </p>
+
+            <p class="tb">
+              Einfach, oder? Was ist hiermit? Kannst du zwei Primzahlen finden, die folgende Gleichung erfüllen?
+            </p>
+
+            <p class="tb">
+              <b>? x ? = 58637</b>
+            </p>
+
+            <p class="tb">
+              Nicht mehr so einfach, nicht wahr? Der beste Ansatz ist ganz stupide verschiedene Primzahlen auszuprobieren und zu schauen
+              ob das entprechende Ergebnis herauskommt. In der Kryptographie lieben wir solche Probleme - einfach in die
+              eine Richtung zu berechnen, schwierig in die andere. Wir werden gleich sehen, wie uns das bei unserem Problem
+              hilft.
+            </p>
+
+            <p class="tb">
+              Bis vor ein paar Jahren wurde dieses sogenannte Primfaktorisierungsproblem (in der Praxis mit sehr großen Zahlen) in fast
+              allen kryptographischen Systemen weltweit genutzt. Mittlerweile gibt es neuartige mathematische Verfahren,
+              die es erlauben, dieses Problem effizienter zu lösen. Das Problem ist also nicht mehr hart genug. Zeit für
+              ein neues.
+            </p>
+
+            <p class="tb">
+
+            </p>
+
+            <div class="is-flex tb" style="justify-content: center; margin: 2rem 0">
+
+              <div class="" style="align-items: flex-start; justify-content:center; min-width: 50px;">
+                <p class="tb">
+                  Schau dir den Funktionsgraph auf der rechten Seite mit folgender Gleichung an:
+                </p>
+
+                <p class="tb has-text-weight-semibold">
+                  <var>y<sup>2</sup></var> = <var>x<sup>3</sup></var> + 7
+                </p>
+
+                <p class="tb">
+                  Solch eine Funktion wird <b>Elliptische Kurve</b> genannt und liefert uns ein derzeit ungelöstes mathematisches
+                  Problem, zu dem wir gleich kommen.
+                </p>
+
+                <p class="tb">
+                  Es gibt bereits einen Punkt <b>G</b> auf der Kurve, den wir <b>Generator Punkt</b> nennen. Sowohl die Kurvengleichung,
+                  als auch die Lage des Generator Punktes sind jedem bekannt. Hier gibt es keine Geheimnisse.
+
+                </p>
+
+              </div>
+
+              <figure class="image has-shadow" style="max-width: 300px; ">
+                <img src="/../external/elliptic1.png">
+              </figure>
+
+
+            </div>
+
+
+            <div class="field p-75">
+              <div class="has-text-right">
+                <button class="button has-tri1 is-primary material" click.delegate="nextPage()">
+                  Wie funktioniert das?
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+
+        <div show.bind="page === 5">
+          <div class="hero is-grey is-small has-shadow">
+            <div class="hero-body has-tri1" style="padding: 1rem 0.75rem">
+
+              <h1 class="title">
+                Elliptische Kurven
+              </h1>
+
+              <h2 class="subtitle">
+                Die Grundlage moderner Kryptographie.
+              </h2>
+
+            </div>
+          </div>
+
+          <div class="box ">
+
+            <p class="tb">
+              Auch wenn die Mathematik hinter den elliptischen Kurven ausgesprochen komplex ist, ist es eigentlich ziemlich einfach die
+              grundlegende Idee dahinter zu verstehen. Los geht's.
+            </p>
+
+            <p class="tb">
+              Das erste, was du wissen musst, ist, dass es zwei grundlegende Operationen auf der elliptischen Kurve gibt. Punkt Verdopplung
+              und Punkt Addition.
+            </p>
+
+
+            <div class="is-flex tb" style="justify-content: center; margin: 2rem 0">
+
+              <div class="" style="align-items: flex-start; justify-content:center; min-width: 50px; padding-right: 1rem;">
+
+                <label class="label has-text-black">Punkt Verdopplung</label>
+
+                <p class="tb">
+                  Wir zeichnen die Tangente an dem Punkt ein, den wir verdoppeln möchten. Diese Gerade schneidet die elliptische Kurve an einem
+                  anderen Punkt. Wir spiegeln nun diesen Punkt an der x-Achse. Das wars.
+                </p>
+
+                <p class="tb">
+                  Schau dir das Beispiel auf der rechten Seite an. Wir beginnen beim Generator Punkt <b>G</b>, zeichnen die
+                  Tangente ein, spiegeln den Schnittpunkt und landen bei <b>2*G</b>.
+                </p>
+
+                <p class="tb">
+                  Angenommen wir möchten <b>4*G</b> oder <b>8*G</b> einzeichnen. Wie würdest du das machen?
+                </p>
+
+
+
+              </div>
+
+              <figure class="image has-shadow" style="max-width: 300px; ">
+                <img src="/../external/elliptic2.png">
+              </figure>
+
+            </div>
+
+            <div class="is-flex tb" style="justify-content: center; margin: 2rem 0">
+
+              <div class="" style="align-items: flex-start; justify-content:center; min-width: 50px; padding-right: 1rem;">
+
+                <label class="label has-text-black">Punkt Addition</label>
+
+                <p class="tb">
+                  Die zweite Operation ist sehr ähnlich. Wir können zwei Kurvenpunkte addieren, indem wir eine Gerade durch sie zeichnen. Diese
+                  Gerade schneidet die elliptische Kurve in einem dritten Punkt. Spiegeln wir diesen Punkt wieder an der
+                  x-Achse, erhalten wir unseren gewünschten Punkt.
+                </p>
+
+                <p class="tb">
+                  Im Beispiel rechts addieren wir <b>G</b> und <b>2*G</b>, indem wir eine Gerade durch beide Punkte zeichnen
+                  und den sich ergebenden Schnittpunkt an der x-Achse spiegeln. Wir erhalten also <b>3*G</b>.
+
+                </p>
+
+                <p class="tb">
+                  <b>G + 2G = 3G</b>
+                </p>
+
+                <p class="tb">
+                  Ausgehend vom Generator Punkt <b>G</b> können wir jedes beliebige Vielfache (2G, 3G, 4G, usw.) mit diesen
+                  zwei Operationen konstruieren.
+                </p>
+
+
+
+              </div>
+
+              <figure class="image has-shadow" style="max-width: 300px; ">
+                <img src="/../external/elliptic3.png">
+              </figure>
+
+            </div>
+
+            <p class="tb">
+              Zeit das selber auszuprobieren! Nutze diese beiden Operationen um auf dem schnellsten Weg <b>517 G</b> zu erzeugen.
+              Klicke auf den entsprechenden Button, um entweder den aktuellen Punkt zu verdoppeln oder den Generator Punkt
+              <b>G</b> zu addieren.
+            </p>
+
+
+            <curve multiple.two-way="multiple" x.two-way="x" y.two-way="y"></curve>
+
+            <div show.bind="multiple !== 517">
+              <p show.bind="multiple < 517" class="tb">
+                Dir fehlen noch <span class="has-text-weight-semibold is-size-6">${517 - multiple} G</span> bevor es weiter
+                geht.
+              </p>
+
+              <p class="tb" show.bind="517 < multiple">
+                Du hast <span class="has-text-weight-semibold is-size-6">${multiple - 517} G</span> zu viel. Geh einen Schritt
+                zurück.
+              </p>
+            </div>
+
+
+            <div show.bind="multiple == 517">
+
+              <p class="tb has-text-weight-semibold">
+                Perfekt!
+              </p>
+
+              <p class="tb">
+                Koordinate (x/y) des Endpunkts: <span class="has-text-weight-semibold">(${x.toFixed(2)} / ${y.toFixed(2)})</span>
+              </p>
+
+              <p class="tb">
+                Es ist also einfach den Endpunkt für jedes beliebige Vielfache von <b>G</b> zu bestimmen. Genauso wie es
+                seine sollte. Drehen wir das Problem jetzt um.
+              </p>
+
+              <div class="field p-75">
+                <div class="has-text-right">
+                  <button class="button has-tri1 is-primary material" click.delegate="nextPage()">
+                    Ich bin bereit
+                  </button>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+
+
+        <div show.bind="page === 6">
+          <div class="hero is-grey is-small has-shadow">
+            <div class="hero-body has-tri1" style="padding: 1rem 0.75rem">
+
+              <h1 class="title">
+                Elliptische Kurven
+              </h1>
+
+              <h2 class="subtitle">
+                Wie oft sind wir gesprungen?
+              </h2>
+
+            </div>
+          </div>
+
+          <div class="box ">
+
+
+
+
+            <div class="is-flex tb" style="justify-content: center; margin: 2rem 0">
+
+              <div class="" style="align-items: flex-start; justify-content:center; min-width: 50px; padding-right: 1rem;">
+
+                <p class="tb">
+                  Auf der rechten Seite siehst du die elliptische Kurve mit zwei Punkten. Dem bekannten Generator Punkt <b>G</b>
+                  und einem anderen unbekannten Vielfachen von G, der mit <b>?*G</b> bezeichnet wird. Wir kennen die Koordinaten
+                  von <b>?*G</b>. Kannst du mir sagen, welchen Wert das 'Fragezeichen' hat, also welches Vielfache von G
+                  entspricht diesem Punkt. Anders ausgedrückt, wie oft sind wir ausgehend von <b>G</b> gesprungen um zum
+                  Punkt <b>?*G</b>
+                  zu gelangen?
+                </p>
+
+                <p class="tb">
+                  Vielleicht hast du es schon geahnt: Dieses Problem ist bisher ungelöst und es existiert kein effizienter Algorithmus. Unsere
+                  einzige Möglichkeit besteht darin, verschieden Vielfache von <b>G</b> auszuprobieren
+                  und zu schauen ob die Koordinaten des Endpunkts mit denen unseres gewünschten Punkts <b>?*G</b> übereinstimmen.
+                  Wir berechnen also <b>2*G</b> und schauen ob der Punkt mit <b>?*G</b> übereinstimmt, dann <b>3G, 4G, 5G</b>
+                  usw...
+                </p>
+
+
+              </div>
+
+              <figure class="image has-shadow" style="max-width: 300px; ">
+                <img src="/../external/elliptic4.png">
+              </figure>
+            </div>
+
+            <p class="tb">
+              Was wir jetzt haben ist genau was wir wollen. Es ist einfach die Koordinaten des Endpunkts zu finden, wenn wir das Vielfache
+              von <b>G</b> kennen, aber andersherum quasi unmöglich.
+            </p>
+
+
+
+            <p class="tb">
+              Wir nutzen jetzt dieses Problem, um unsere Bitcoin <b>Wallet</b> zu erzeugen. Hierfür nehmen wir unseren
+              <b>Private Key</b>, also die riesige 256-bit Zufallszahl, die wir vor wenigen Minuten erzeugt haben:
+            </p>
+
+            <p class="tb is-size-7 has-text-weight-semibold  has-text-primary">
+              ${rand16}
+            </p>
+
+            <p class="tb">
+              Wieder umgewandelt als Dezimalzahl nehmen wir sie als Vielfaches von <b>G</b>:
+            </p>
+
+            <p class="tb">
+              <b class="has-text-primary">Private Key</b><b>*G</b> ≙ <span class="has-text-primary">${rand10}</span><b>*G</b>
+            </p>
+
+            <p class="tb">
+              Wir nutzen Punkt Verdopplung und Punkt Addition und springen so lange auf der elliptischen Kurve, bis wir <span
+                    class="has-text-primary">${rand10}</span><b>*G</b> erreicht haben, also das <b>${rand10}</b>-fache von <b>G</b>.
+              Wir nehmen dann die x-Koordinate unseres resultierenden Endpunkts und nennen ihn <b class="has-text-info">Public
+                Key
+              </b> (Öffentlicher Schlüssel):
+            </p>
+
+            <p class="tb has-text-weight-semibold is-size-7  has-text-info">
+              ${publicKey.substring(2,64)}
+            </p>
+
+            <p class="tb">
+              Das ist alles. Wir haben unsere eigene Bitcoin <b>Wallet</b> erstellt, die ein Schlüsselpaar enthält. Auch
+              wenn die Mathematik dahinter ein wenig vereinfacht dargestellt wurde, kann man die Grundidee noch einmal wie
+              folgt zusammenfassen: Der <b>Private Key</b> entspricht der Anzahl an Sprüngen, die ausgehend von <b>G</b>
+              gemacht werden. Der <b>Public Key</b> ist der Endpunkt, also das <b>Private Key</b>-fache von <b>G</b> und
+              gleichzeitig unsere Bitcoin Adresse.
+
+            </p>
+
+            <p class="tb">
+              <b class="has-text-info">Public Key</b> = <b class="has-text-primary">Private Key</b><b>*G</b>
+            </p>
+
+            <p class="tb">
+              Lasst uns noch einmal festhalten, dass der <b>Public Key</b> einfach berechnet werden kann, wenn wir den <b>Private
+                Key
+              </b> kennen. In diese Richtung ist das Rechnen auf der elliptischen Kurve einfach. Andersherum ist es quasi
+              unmöglich. Haben wir den <b>Public Key</b> (in der Realität kennt jeder deinen öffentlichen Schlüssel), gibt
+              es keinen Weg daraus den <b>Private Key</b> zu berechnen. Die einzige Möglichkeit ist alle möglichen privaten
+              Schlüssel auszuprobieren, was aufgrund der unvorstellbar großen Anzahl selbst mit den schnellsten Computern
+              praktisch unmöglich ist (dazu später mehr).
+            </p>
+
+            <div class="field p-75">
+              <div class="has-text-right">
+                <button class="button has-tri1 is-primary material" click.delegate="nextPage()">
+                  Was mache ich jetzt damit?
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+
+        <div show.bind="page === 7">
+          <div class="hero is-grey is-small has-shadow">
+            <div class="hero-body has-tri1" style="padding: 1rem 0.75rem">
+
+              <h1 class="title">
+                Digitale Signaturen
+              </h1>
+
+              <h2 class="subtitle">
+                Beweise deine Identität.
+              </h2>
+
+            </div>
+          </div>
+
+          <div class="box ">
+
+            <p class="tb">
+              Lasst uns das Problem noch einmal in Erinnerung rufen:
+            </p>
+
+            <div class="content tb">
+              <ul>
+                <li style="padding-bottom:0.75rem;">
+                  Woher wissen wir ob Person A wirklich Person A ist und nicht Person C, die so tut als wäre sie Person A? Wir haben ja keine
+                  Bank mehr, die die Identität von Person A verifizieren könnte.
+                </li>
+
+              </ul>
+            </div>
+
+            <p class="tb">
+              Stell dir vor, wir haben eine offene Datenbank in die jeder seine Transaktionen eintragen kann. Eine Transaktion könnte so
+              aussehen:
+
+            </p>
+
+            <p class="tb">
+              Alice <i class="fas fa-long-arrow-alt-right"></i> Bob <b>:</b> 2.5 BTC
+            </p>
+
+            <p class="tb">
+              Alice möchte also 2.5 Bitcoin an Bob senden. In der Praxis wird das Geld von Alice's <b>Public Key</b> an Bob's
+              <b>Public Key</b> gesendet. Der <b>Public Key</b> entpricht jeweils der Bitcoin Adresse des Nutzers und ist
+              für jeden öffentlich sichtbar. Genauso wie wir es von Kontonummern gewohnt sind.
+
+            </p>
+
+            <p class="tb">
+              Wenn jetzt also jeder beliebige Transaktionen in die Datenbank eintragen kann, wie können wir uns dann sicher sein, dass
+              die Transaktion tatsächlich von Alice stammt? Sie könnte genauso gut von Bob eingestellt worden sein, der damit
+              Alice's Geld stiehlt. Ohne ein Verfahren, dass überprüft ob die Überweisung tatsächlich vom rechtmässigen Absender
+              autorisiert wurde, ist das gesamte System nutzlos.
+            </p>
+
+            <label class="label has-text-black">Digitale Signatur</label>
+
+            <p class="tb">
+              Alice muss also irgendwie ihre Identität beweisen. In einer Welt mit Banken würde sie das mit ihren Online-Zugangsdaten oder
+              einem händisch unterschriebenen Überweisungsscheck machen. Beides hilft uns hier nicht.
+            </p>
+
+            <p class="tb">
+              Aber es gibt eine andere Möglichkeit. Wir können das digitale Äquivalent einer Unterschrift benutzen, ein Verfahren, das
+              viel einfacher und sicherer ist als alles was wir kennen. Wir nennen es <b>Digitale Signatur</b>.
+            </p>
+
+            <div class="is-flex" style="justify-content: flex-start; margin-bottom: 1.5rem;">
+              <figure class="image has-shadow has-background-white" style="max-width: 500px;">
+                <img src="/../external/digitalsignature.png">
+              </figure>
+            </div>
+
+            <p class="tb">
+              Wir nehmen unseren <b>Private Key</b> und die zu sendende <b>Transaktion</b> und berechnen daraus eine eindeutige
+              digitale Signatur (≙ lange Zahl). Die Mathematik dahinter ist ein wenig kompliziert, aber wir müssen sie nicht
+              gänzlich nachvollziehen um die Grundidee zu verstehen. Wir tragen jetzt also nicht nur unsere Transaktion in
+              die offene Datenbank ein, sondern hängen auch noch die digitale Signatur an. Wichtig ist noch zu erwähnen,
+              dass wenn man die Signatur und die Transaktion kennt, nicht zurück auf den pivaten Schlüssel schließen kann.
+            </p>
+
+
+            <div class="is-flex" style="justify-content: flex-start; margin-bottom: 1.5rem;">
+              <figure class="image has-shadow has-background-white" style="max-width: 500px;">
+                <img src="/../external/digitalsignature2.png">
+              </figure>
+            </div>
+
+            <p class="tb">
+              Jeder kann jetzt mithilfe folgender Rechnung überprüfen ob die Transaktion tatsächlich vom rechtmässigen Besitzer stammt:
+              Wir entnehmen der Transaktion den <b>Public Key</b> des Absenders, weil dieser ja behauptet der
+              legitime Sender zu sein. Zusammen mit der angefügten <b>digitalen Signatur</b> füttern wir eine Verifizierungsfunktion,
+              die uns sagt, ob die Signatur für diese spezifische Transaktion gültig ist oder nicht, also ob sie wirklich
+              vom rechtmässigen Absender stammt. Probieren wir das einmal aus. Erstelle eine Beispieltransaktion, indem du
+              einen beliebigen Empfänger und einen beliebigen Betrag einträgst.
+            </p>
+
+            <div class="box is-paddingless">
+
+              <div class="hero is-grey is-small" style="border-bottom: 1px solid lightgrey;">
+                <div class="hero-body has-tri1" style="padding: 1rem 0.75rem">
+
+                  <h1 class="title">
+                    Transaktion signieren
+                  </h1>
+
+                  <h2 class="subtitle">
+                    Transaktion + <b class="has-text-primary">Private Key</b> -> <b class="has-text-success">Signatur</b>
+                  </h2>
+
+                </div>
+              </div>
+
+              <div class="p-75" style="background: rgba(237, 188, 100,0.1)">
+
+                <label class="label is-small">Transaktion</label>
+
+                <div class="tb is-flex" style="padding: 0.75rem 0;align-items: center">
+
+                  <div class="has-text-centered" style="flex-grow:2">
+
+                    <div show.bind="!fakeSender">
+                      <div class="has-text-weight-semibold">
+                        ${transaction.sender}
+                      </div>
+                      <div class="is-size-7">
+                        Public Key: <span class="has-text-info">${transaction.publicKey.substring(2,20)}</span> ...
+                      </div>
+
+                    </div>
+
+
+                  </div>
+
+                  <div>
+
+                    <span class="icon has-text-info">
+                      <i class="fas fa-long-arrow-alt-right"></i>
+                    </span>
+
+                  </div>
+
+
+
+                  <div class="is-flex" style="flex-grow:2; justify-content: center">
+
+                    <div class="control" style="width: 80%;max-width: 300px;">
+                      <input value.bind="transaction.receiver" input.delegate="transaction.signature = undefined" class="has-shadow input input-borderless"
+                             type="text" placeholder="Empfänger">
+                    </div>
+
+
+
+                  </div>
+
+
+                  <div style="width: 100px;">
+                    <div class="control has-icons-left">
+                      <span class="icon is-small is-left has-text-info">
+                        <i class="fab fa-bitcoin"></i>
+                      </span>
+
+                      <input required class="input input-borderless has-shadow" style="width:120px;" input.delegate="transaction.signature = undefined"
+                             type="number" min="0" step="0.01" placeholder="Betrag" value.bind="transaction.amount">
+                    </div>
+                  </div>
+
+
+
+                </div>
+
+                <label class="label is-small">Dein privater Schlüssel</label>
+
+                <p class="tb is-size-7 has-text-weight-semibold  has-text-primary">
+                  ${rand16}
+                </p>
+
+                <div class="has-text-right">
+                  <button disabled.bind="!(transaction.recipient || transaction.amount > 0)" class="button is-primary material is-size-7" click.delegate="sign()">
+                    Mit deinem privaten Schlüssel signieren
+                  </button>
+                </div>
+
+                <div show.bind="transaction.signature">
+
+                  <label class="label is-small">Digitale Signatur</label>
+
+                  <p class="is-size-7 has-text-weight-semibold has-text-success" style="max-width:50%">${transaction.signature}</p>
+
+                </div>
+
+              </div>
+
+            </div>
+
+            <div show.bind="transaction.signature">
+              <p class="tb">
+                Jeder kann jetzt die Rechtmäßigkeit dieser Transaktion mit dem öffentlichen Schlüssel des Absenders überprüfen.
+              </p>
+            </div>
+
+            <div show.bind="transaction.signature" class="box is-paddingless">
+
+
+
+              <div class="hero is-grey is-small" style="border-bottom: 1px solid lightgrey;">
+                <div class="hero-body has-tri1" style="padding: 1rem 0.75rem">
+
+                  <h1 class="title">
+                    Transaktion verifizieren
+                  </h1>
+
+                  <h2 class="subtitle">
+                    Transaktion + <b class="has-text-success">Signature</b> + <b class="has-text-info">Public Key</b> ->
+                    Gültig?
+                  </h2>
+
+                </div>
+              </div>
+
+              <div class="p-75" style="background: rgba(237, 188, 100,0.1)">
+
+                <label class="label is-small">Transaktion</label>
+
+                <div class="tb is-flex" style="padding: 0.75rem 0;align-items: center">
+
+                  <div class="has-text-centered" style="flex-grow:2">
+
+                    <div>
+                      <div class="has-text-weight-semibold">
+                        ${transaction.sender}
+                      </div>
+                      <div class="is-size-7">
+                        Public Key: <span class="has-text-info">${transaction.publicKey.substring(2,20)}</span> ...
+                      </div>
+
+                    </div>
+
+
+                  </div>
+
+                  <div>
+
+                    <span class="icon has-text-info">
+                      <i class="fas fa-long-arrow-alt-right"></i>
+                    </span>
+
+                  </div>
+
+
+
+                  <div class="is-flex" style="flex-grow:2; justify-content: center">
+
+                    <div class="control" style="width: 80%;max-width: 300px;">
+                      <p>${transaction.receiver}</p>
+                    </div>
+
+
+
+                  </div>
+
+
+                  <div style="width: 100px;">
+                    <div class="control has-icons-left">
+
+
+                      <span class="has-text-weight-semibold">${transaction.amount} </span>BTC
+                    </div>
+                  </div>
+
+
+
+                </div>
+
+
+                <div class="tb">
+                  <label class="label is-small">Digitale Signatur</label>
+
+                  <p class="is-size-7 has-text-weight-semibold has-text-success" style="max-width:50%">${transaction.signature}</p>
+
+                </div>
+
+                <label class="label is-small">Public Key</label>
+
+                <p class="tb is-size-7 has-text-weight-semibold  has-text-info">
+                  ${transaction.publicKey.substring(2,66)}
+                </p>
+
+
+
+                <div class="has-text-right" style="margin-bottom: 1rem;">
+                  <button class="button is-info material is-size-7" click.delegate="verify()">
+                    Signatur mit ${transaction.sender == "Ich" ? '' : "Alice's"} öffentlichem Schlüssel überprüfen
+                  </button>
+
+                </div>
+
+
+
+              </div>
+
+
+              <div show.bind="transaction.valid" class="is-flex p-75 has-background-white " style="border-top:1px solid lightgrey; justify-content: space-between; align-items: center;">
+                <div class="has-text-weight-bold has-text-success" style="margin-right: 2rem; flex-shrink:0">Signatur gültig</div>
+                <div class="is-size-7">
+                  Du bist der Absender dieser Transaktion und hast sie mit deinem privaten Schlüssel signiert. Daher konntest du eine gültige
+                  Signatur erzeugen. Perfekt!
+                </div>
+              </div>
+              <div show.bind="transaction.valid" class="has-text-right" style="padding: 0.75rem; padding-top:0;">
+                <button class="button is-primary material is-size-7" click.delegate="fakeTransaction()">
+                  Lass uns versuchen Alice zu bestehlen
+                </button>
+              </div>
+
+              <div show.bind="transaction.invalid" class="is-flex p-75 has-background-white" style="border-top:1px solid lightgrey; justify-content: space-between; align-items: center;">
+                <div class="has-text-weight-bold has-text-danger" style="margin-right: 2rem; flex-shrink:0">Signatur ungültig</div>
+                <div class="is-size-7">Da wir Alice's privaten Schlüssel nicht kennen, können wir keine gültige Transaktion
+                  in ihrem Namen erzeugen.</div>
+              </div>
+
+
+            </div>
+
+            <div show.bind="transaction.invalid">
+
+              <label class="label">Algorithmus</label>
+
+              <p class="tb">
+                Schauen wir uns noch einmal die Transaktion von Alice an Bob an. Alice signiert die Transaktion <b>T</b>
+                mit ihrem privaten Schlüssel <b>private_Alice</b>:
+              </p>
+
+              <p class="tb">
+                <b>T</b> + <b class="has-text-primary">private_Alice</b> => <b class="has-text-success">Signature</b>
+              </p>
+
+              <p class="tb">
+                Sie veröffentlicht die Transaktion mitsamt der Signatur. Beachte, dass der private Schlüssel niemals übertragen oder irgendjemand
+                mitgeteilt wird. Er wird ausschließlich dazu verwendet die digitale Signatur zu erzeugen. Nun kann jeder
+                ganz einfach überprüfen ob die Transaktion tatsächlich von Alice kommt:
+              </p>
+
+              <p class="tb">
+                <b class="has-text-success">Signature</b> + <b class="has-text-info">public_Alice</b> => <b>T</b>
+              </p>
+
+              <p class="tb">
+                Um zu verstehen warum das funktioniert ersetzen wir die Signatur durch <b>T + private_Alice</b>, denn daraus
+                wurde sie ja berechnet. Wir erhalten:
+              </p>
+
+              <p class="tb">
+                <b>T</b> + <b class="has-text-primary">private_Alice</b> + <b class="has-text-info">public_Alice</b> = <b>T</b>
+              </p>
+
+              <p class="tb">
+                Jetzt kommt der springende Punkt dieses Algorithmus. <u>Nur wenn der private und öffentliche Schlüssel in
+                  dieser Gleichung von der selben Person bzw. Wallet kommen, heben sie sich gegenseitig auf</u>
+                und es bleibt übrig:
+              </p>
+
+              <p class="tb">
+                <b>T</b> = <b>T</b>
+              </p>
+
+              <p class="tb">
+                Und wenn jetzt beide Seiten dieser Gleichung den gleichen Wert haben, wissen wir, dass der Ersteller dieser Transaktion im
+                Besitz des privaten Schlüssels des Absenders war. Und damit wissen wir auch, dass sie tatsächlich von Alice
+                kommt, denn nur sie kennt ihren privaten Schlüssel. Schauen wir uns an was passiert, wenn Bob diese Transaktion
+                faken würde:
+
+              </p>
+
+              <p class="tb">
+                <b>T</b> + <b class="has-text-primary">private_Bob</b> + <b class="has-text-info">public_Alice</b> = <b>T</b>
+              </p>
+
+              <p class="tb">
+                In diesem Fall heben sich die Schlüssel nicht gegenseitig auf, da sie von unterschiedlichen Wallets stammen. Die Signatur
+                wäre ungültig und wir wüssten sofort, dass Alice diese Transaktion nicht autorisiert hat. Dieser Algorithmus
+                basiert auf besonderen Eigenschaften unserer elliptischen Kurve und wird <b>Elliptic Curve
+                  Digital Signature Algorithm
+                </b> (ECDSA) genannt. Wenn es dich interessiert warum das mathematisch funktioniert, lass es mich wissen:
+                <a href="mailto:voluntaryway@gmail.com">voluntaryway@gmail.com</a>
+
+              </p>
+
+              <p class="tb">
+                Wir haben etwas großartiges geschafft! Wir haben einen super einfachen und sicheren Weg gefunden wie sich Personen digital
+                ausweisen können. Problem gelöst.
+              </p>
+
+              <div class="field p-75">
+                <div class="has-text-right">
+                  <button class="button has-tri1 is-primary material" click.delegate="nextPage()">
+                    Bereit für das zweite Problem
+                  </button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+
+        <div show.bind="page === 8">
+          <div class="hero is-grey is-small has-shadow">
+            <div class="hero-body has-tri1" style="padding: 1rem 0.75rem">
+
+              <h1 class="title">
+                Dezentrale Datenbank
+              </h1>
+
+              <h2 class="subtitle">
+                Wo speichern wir die ganzen Transaktionen?
+              </h2>
+
+            </div>
+          </div>
+
+          <div class="box ">
+
+            <p class="tb">
+              Mit der Einführung digitaler Signaturen haben wir einen großen Schritt gemacht. Aber noch sind wir nicht am Ziel. Das zweite
+              Problem besteht noch:
+            </p>
+
+            <div class="content tb">
+              <ul>
+                <li style="padding-bottom:0.75rem;">
+                  Woher wissen wir ob Person A genug Geld auf dem Konto hat um eine Transaktion auszuführen? Wir haben keine Bank mehr, die
+                  das in ihrer zentralen Datenbank nachschauen könnte.
+                </li>
+              </ul>
+            </div>
+
+            <p class="tb">
+              Auch wenn wir glücklich darüber sind, die Bank los zu sein, sollten wir nicht vergessen, dass sie eine wertvolle Aufgabe
+              erfüllte. Indem sie alle jemals durchgeführten Transaktionen in einer zentralen Datenbank speicherte, konnte
+              sie zu jedem Zeitpunkt eindeutig bestimmen, über wieviel Geld jedes einzelne Konto verfügt. Und genau das brauchen
+              wir auch weiterhin. Alle Überweisungen müssen irgendwo gespeichert werden und jeder Bitcoin Nutzer muss sich
+              darauf verlassen können, dass diese Transaktionshistorie eindeutig und unveränderlich ist. Ansonsten würde
+              niemand solch einem Geld Wert beimessen.
+            </p>
+
+            <p class="tb">
+              <b>Erste Idee:</b> Erstellen wir ein einzelnes Google Docs, machen es für jeden frei zugänglich und lassen
+              dort jeden seine Transaktionen (samt Signatur) hineinschreiben. Jetzt haben wir alle Transaktionen gesammelt
+              an einem Ort und können leicht überprüfen ob jemand genug Geld hat um eine Transaktion durchzuführen. Das Problem
+              ist allerdings, dass die Datei weiterhin auf einem zentralen Server existiert und manipuliert oder gelöscht
+              werden kann. Niemand würde diesem Geld vertrauen.
+
+            </p>
+
+            <p class="tb">
+              <b>Zweite Idee:</b> Wir verteilen eine Kopie dieser Datei an alle Computer die sie haben möchten. Jetzt haben
+              wir sie nicht mehr auf einem zentralen Server, sondern jeder hat eine eigene Version auf seinem Computer. Immer
+              wenn jetzt jemand eine Transaktion durchführen möchte, gibt er sie an alle anderen Computer über das Internet
+              bekannt. Diese tragen sie dann in ihre eigene persönliche Transaktionsdatenbank ein. Solche Computer, die Tag
+              und Nacht darauf warten Transaktionen aufzuzeichnen, nennen wir <b>Nodes</b>. Zusammen bilden sie das <b>Bitcoin
+                Netzwerk
+              </b> und jede Person auf der Welt mit einem Computer und Internetzugang kann ein Teil davon werden.
+            </p>
+
+            <div class="is-flex" style="justify-content: flex-start; margin-bottom: 1.5rem;">
+              <figure class="image has-shadow has-background-white" style="max-width: 500px;">
+                <img src="/../external/blockchain1.png">
+              </figure>
+            </div>
+
+
+            <p class="tb">
+              Sieht gut aus? Ja, aber es gibt ein weiteres Problem. Wie stellen wir sicher, dass alle diese verteilten Datenbanken die
+              selben Transaktionen aufgezeichnet haben? Weil wenn das nicht so ist, könnte Alice laut der Datenbank von Node
+              A mehr Geld besitzen als auf Basis von Node B. Wieviel Guthaben hat Alice also jetzt? Welcher <b>Node</b>
+              hat recht?
+            </p>
+
+
+            <div class="field p-75">
+              <div class="has-text-right">
+                <button class="button has-tri1 is-primary material" click.delegate="nextPage()">
+                  Wie einigen wir uns?
+                </button>
+              </div>
+            </div>
+
+
+
+
+          </div>
+        </div>
+
+
+        <div show.bind="page === 9">
+          <div class="hero is-grey is-small has-shadow">
+            <div class="hero-body has-tri1" style="padding: 1rem 0.75rem">
+
+              <h1 class="title">
+                Konsens finden
+              </h1>
+
+              <h2 class="subtitle">
+                Wie schaffen wir es, dass jeder die selbe Transaktionsdatenbank hat?
+              </h2>
+
+            </div>
+          </div>
+
+          <div class="box ">
+
+            <p class="tb">
+              Angenommen, Bob und Charlie verkaufen iPhones für jeweils 1 Bitcoin. Lass uns weiter annehmen, es existieren nur vier
+              <b>Nodes</b> im Bitcoin Netzwerk und alle von ihnen besitzen die exakt gleiche Transaktionsdatenbank. Auf Basis
+              dieser Transaktionshistorie besitzt Alice genau 1 Bitcoin. Alice möchte iPhones kaufen und erstellt deshalb
+              die folgenden beiden Transaktionen (samt Signatur):
+            </p>
+
+            <p class="tb">
+              Alice <i class="fas fa-long-arrow-alt-right"></i> Bob <b>:</b> 1 BTC
+            </p>
+
+
+            <p class="tb">
+              Alice <i class="fas fa-long-arrow-alt-right"></i>
+              Charlie <b>:</b> 1 BTC
+            </p>
+
+            <p class="tb">
+              Schickt Alice diese Transaktionen an alle Nodes, würde jeder einzelne von ihnen sofort erkennen, dass Alice nicht in der
+              Lage ist beide Transaktionen auszuführen, da sie nur über 1 Bitcoin verfügt. Die Nodes würden also nur die
+              erste Transaktion in ihre Datenbank schreiben und die zweite ignorieren. Nur <b>Bob</b>'s Transaktion
+              wird erfasst und sobald Bob das von den Nodes erfährt, schickt er das iPhone los.
+            </p>
+
+            <p class="tb">
+              Aber was passiert wenn Alice die Transaktion von <b>Bob</b> nur an die Nodes A/B sendet und <b>Charlie</b>'s
+              Transaktion nur an die Nodes C/D? Node A würde die Transaktion an <b>Bob</b> sofort in seiner Datenbank notieren
+              ohne die leiseste Idee, dass
+              <b>Charlie</b>'s Transaktion überhaupt existiert. Das selbe gilt für Node C, der nur <b>Charlie</b>'s Transaktion
+              in seine Datenbank schreibt. Verschiedene <b>Nodes</b> haben jetzt also unterschiedliche Transaktionsdatenbanken.
+              Welche ist die korrekte? Auf welche sollten Bob und Charlie vertrauen bevor sie ihre iPhones versenden?
+
+
+            </p>
+
+            <p class="tb">
+              Wir brauchen also einen Mechanismus der sicherstellt, dass jeder Bitcoin Nutzer immer die exakt selbe Transaktionsdatenbank
+              vor sich hat und sich zu 100% sicher sein kann, dass diese die einzige Quelle der Wahrheit ist und von jedem
+              anderen Nutzer akzeptiert wird ohne Raum für Doppeldeutigkeit. Und das ohne eine zentrale Instanz. Wie schaffen
+              wir also einen Konsens zwischen allen <b>Nodes</b>, so dass alle Node-Datenbanken synchronisiert
+              sind und genau die gleichen Transaktionen beinhalten?
+            </p>
+
+            <p class="tb">
+              Bitcoin's Konsensmechanismus nennt sich <b>Proof of Work</b> und er funktioniert wie folgt: Es gibt eine sich
+              periodisch wiederholende Lotterie zwischen allen Nodes. Teilnehmer an dieser Lotterie nennen wir
+              <b>Miner</b>. Jeder Miner bündelt alle erhaltenen ausstehenden Transaktionen in einem sogenannten <b>Block</b>.
+              Man kann sich einen <b>Block</b> als kleine Teildatenbank vorstellen. Etwa alle 10 Minuten gewinnt ein
+              <b>Miner</b> die Lotterie und hat das Recht seinen <b>Block</b> an alle anderen Nodes zu schicken. Dann beginnt
+              die Lotterie von vorne und einer neuer Block wird produziert.
+            </p>
+
+            <p class="tb">
+              Was wir also am Ende haben is ein Haufen <b>Blocks</b> von unterschiedlichen <b>Minern</b>, die das Glück hatten
+              eine Block Lotterie zu gewinnen. Jeder dieser Blocks enthält einen Bruchteil aller Transaktionen. Alle Blöcke
+              zusammen stellen unsere gesamte Transaktionsdatenbank dar. Die Datenbank wird also in kleine, von verschiedenen
+              Minern erschaffene, Teile aufgesplittet.
+
+            </p>
+
+            <p class="tb">
+              Bevor wir uns ansehen was diese Lotterie eigentlich ist und wie sie uns bei unserem Problem hilft, müssen wir uns noch einem
+              letzten mathematischen Konzept widmen.
+            </p>
+
+
+            <div class="field p-75">
+              <div class="has-text-right">
+                <button class="button has-tri1 is-primary material" click.delegate="nextPage()">
+                  Auf geht's
+                </button>
+              </div>
+            </div>
+
+
+
+
+          </div>
+        </div>
+
+        <div show.bind="page === 10">
+          <div class="hero is-grey is-small has-shadow">
+            <div class="hero-body has-tri1" style="padding: 1rem 0.75rem">
+
+              <h1 class="title">
+                Kryptographischer Hash
+              </h1>
+
+              <h2 class="subtitle">
+                Ein Daten-Fingerabdruck.
+              </h2>
+
+            </div>
+          </div>
+
+          <div class="box ">
+
+            <p class="tb">
+              Eine kryptographische Hashfunktion erzeugt für jeden frei wählbaren Input beliebiger Länge (Text, Zahlen, Dateien, Bilder,
+              usw.) eine einzige Zahl fester Länge. Probieren wir es aus!
+            </p>
+
+            <p class="" style="margin-bottom: 0;">
+              <textarea input.delegate="calculateHash()" value.bind="hashText" class="textarea has-fixed-size" placeholder="Gib irgendetwas ein..."></textarea>
+            </p>
+
+            <div show.bind="hashText" class="has-background-white p-75" style="border: 1px solid lightgrey; border-top:0; margin-bottom: 2rem;">
+              <label class="label is-small">SHA-256 Hash</label>
+
+              <p class="is-size-7 has-text-weight-semibold has-text-danger">
+                ${hash}
+              </p>
+            </div>
+
+            <p show.bind="hashText" class="tb">
+              Schau wie sich der <b>Hash</b> ändert wenn du weitere Zeichen eingibst. Du kannst ihn dir wie einen Fingerabdruck
+              deiner Eingangsdaten vorstellen.
+            </p>
+
+            <div show.bind="hashText.length > 1">
+
+              <p class="tb">
+                Es gibt viele verschieden Hashing-Algorithmen, aber uns interessiert im Moment nur SHA-256, der für jeden beliebigen Input
+                eine 256-bit Zahl ausgibt. Falls du dich wunderst, ja, er hat das selbe Format wie unser privater bzw. öffentlicher
+                Schlüssel. 256-bit ist einfach die magische Zahl wenn es um Sicherheit geht.
+              </p>
+
+              <p class="tb">
+                Solch ein <b>Hash</b> hat einige interessante Eigenschaften:
+              </p>
+
+              <div class="content tb">
+                <ul>
+                  <li style="padding-bottom:0.75rem;">
+                    Für die selben Eingangsdaten ergibt sich immer der selbe Hash.
+                  </li>
+
+                  <li style="padding-bottom:0.75rem;">
+                    Wenn du die Eingangsdaten nur minimal änderst, so ändert sich der Hash komplett.
+                  </li>
+
+                  <li style="padding-bottom:0.75rem;">
+                    Kennst du nur den Hash, gibt es keine Möglichkeit auf die Eingangsdaten zu schließen.
+                  </li>
+
+                  <li style="padding-bottom:0.75rem;">
+                    Kollisionsresistenz: Zwei unterschiedliche Inputs ergeben nie den selben Hash.
+                  </li>
+
+                  <li style="padding-bottom:0.75rem;">
+                    Es ist unmöglich vorherzusagen, wie der Hash für bestimmte Eingangsdaten aussehen wird.
+                  </li>
+
+                </ul>
+              </div>
+
+              <p class="tb">
+                Spiel ein bisschen herum und überprüfe diese Eigenschaften.
+              </p>
+
+              <p class="tb">
+                Finde jetzt einen Input, der einen <b>Hash</b> mit einer führenden Null produziert. Erst dann wird der Button
+                freigeschalten.
+
+              </p>
+
+              <div class="field p-75">
+                <div class="has-text-right">
+                  <button disabled.bind="!mined" class="button has-tri1 is-primary material" click.delegate="nextPage()">
+                    Juhu! Zeig mir wie die Lotterie funktioniert
+                  </button>
+                </div>
+              </div>
+
+            </div>
+
+
+
+
+
+
+
+
+          </div>
+        </div>
+
+        <div show.bind="page === 11">
+          <div class="hero is-grey is-small has-shadow">
+            <div class="hero-body has-tri1" style="padding: 1rem 0.75rem">
+
+              <h1 class="title">
+                Blöcke bauen
+              </h1>
+
+              <h2 class="subtitle">
+                und die Lotterie gewinnen.
+              </h2>
+
+            </div>
+          </div>
+
+          <div class="box ">
+
+            <p class="tb">
+              Was du gerade gemacht hast (zufällige Zeichen in ein Textfeld eingeben und hoffen dass ein Hash mit einem bestimmten Muster
+              herauskommt) ist prinzipiell genau das was <b>Miner</b> tun wenn sie an der Lotterie teilnehmen.
+            </p>
+
+            <p class="tb">
+              Lass uns das Problem noch ein letztes Mal in Erinnerung rufen:
+            </p>
+
+            <div class="content tb">
+              <ul>
+                <li style="padding-bottom:0.75rem;">
+                  Wie schaffen wir einen Konsens zwischen allen <b>Nodes</b>, so dass alle Node-Datenbanken synchronisiert
+                  sind und genau die gleichen Transaktionen beinhalten?
+                </li>
+              </ul>
+            </div>
+
+            <p class="tb">
+              Wir wollen also eine dezentrale Datenbank, die auf Tausenden von Computern weltweit verteilt ist und überall die exakt gleichen
+              Transaktionen enthält. Durch die Einführung von <b>Blocks</b> (≙ Transaktionsbündel), die etwa
+              alle 10 Minuten auf Basis einer Lotterie produziert werden, schaffen wir eine gewisse Ordnung. Transaktionen
+              können jetzt nicht mehr einzeln von jedem zur offenen Datenbank hinzugefügt werden sobald diese entstehen,
+              sondern nur noch gesammelt in Form eines <b>Blocks</b> durch den Gewinner der Lotterie. Wenn wir unsere Datenbank
+              nur in bestimmten Abständen mit wohldefinierten Blocks erweitern, geben wir den Nodes eine Datenstruktur auf
+              die sie sich verständigen können. Und das bringt uns dem näher, was wir schlussendlich wollen: Konsens.
+            </p>
+
+
+            <label class="label">Die Lotterie</label>
+
+            <p class="tb">
+              Welche Merkmale sollte eine gute Lotterie mitbringen? Klar, zufällig sollte sie sein. Plus, je mehr Tickets jemand erwirbt,
+              desto größer sollten seine Gewinnchancen sein. Bauen wir uns also eine solche Lotterie.
+            </p>
+
+            <p class="tb">
+              Wir wissen das ein <b>Block</b> schlicht aus einer Reihe von Transaktionen besteht, die ein bestimmter Node
+              erhalten hat. Jeder <b>Miner</b> nimmt nun diese Transaktionsdaten und berechnet davon den SHA-256 Hash. Ein
+              <b>Miner</b> gewinnt die Lotterie wenn der Hash mit einer bestimmten Anzahl von Nullen beginnt. Sagen wir,
+              es sind 4 führende Nullen notwendig um die Lotterie zu gewinnen. Natürlich ist es sehr unwahrscheinlich, dass
+              die Transaktionsdaten eines <b>Miners</b> zufälligerweise einen Hash produzieren, der mit 4 Nullen beginnt.
+              Deshalb enthält jeder Block noch ein weiteres Datenfeld, in das der <b>Miner</b> eine zufällige Zahl (<b>Nonce</b>)
+              anhängen kann. Denk dran: eine kleine Änderung der Inputdaten, verändert den Hash auf unvorhersehbare Weise.
+
+
+            </p>
+
+            <p class="tb">
+              <b>Miner</b> nehmen jetzt also ihre Transaktionsdaten, fügen eine zufällige Zahl (Nonce) hinzu, berechnen den
+              Hash und prüfen ob er mit 4 Nullen beginnt. Ist das nicht der Fall, fügen sie eine andere Nonce hinzu und berechnen
+              den Hash neu. Dieser Prozess wird <b>Mining</b>
+              genannt und solange wiederholt bis irgendein <b>Miner</b> als erstes einen gültigen Hash findet (hier: 4 führende
+              Nullen). In der Praxis wird die Anzahl der geforderten führenden Nullen dynamisch angepasst, sodass im Schnitt
+              alle 10 Minuten 'die Lotterie gewonnen' aka 'ein Block gefunden' wird.
+            </p>
+
+            <p class="tb">
+              Sobald ein neuer Block gefunden wurde, hören alle Nodes sofort auf den aktuellen Block zu minen und beginnen damit einen
+              neuen zu bauen. Dabei nehmen sie in den neuen Block keine Transaktionen auf die bereits in einem vorherigen
+              Block existieren. Außerdem werden keine Transaktionen aufgenommen, deren Absender auf Basis der aktuellen Transaktionshistorie
+              über nicht genügend Guthaben verfügen. Und natürlich werden Transaktionen mit ungültigen Signaturen von vornherein
+              ausgeschlossen.
+            </p>
+
+            <p class="tb">
+              Solch einen gültigen <b>Hash</b> zu finden ist ein rein zufälliger Prozess. Moderne Computer können Milliarden
+              Hashes pro Sekunde berechnen. Die derzeitige Hashrate des Bitcoin Netzwerks (alle Miner zusammen) wird auf
+              50 Exahashes/Sekunde geschätzt. Das sind <b>50.000.000.000.000.000.000 Hashes pro Sekunde</b>. Um eine durschnittliche
+              Blockzeit von 10 Minuten zu erreichen sind aktuell 19 führende Nullen für den Gewinn der Lottrie erforderlich.
+              Verrückt.
+            </p>
+
+            <p class="tb">
+              Umso mehr Rechenleistung jemand hat, desto größer die Chance als erster einen Block zu finden. Aber warum sollte man so viel
+              Energie investieren? Jeder <b>Miner</b> darf eine ganz besondere Transaktion in seinen Block
+              aufnehmen. Eine bestimme Menge Bitcoin wird neu erschaffen (derzeit 6.25 BTC) und dem Miner gutgeschrieben,
+              der zuerst einen gültige Block Hash findet. Das ist auch der einzige Weg wie Bitcoins überhaupt entstehen und
+              warum wir es Mining nennen - neue Bitcoins 'finden' und damit die Geldmenge vergrößern.
+
+            </p>
+
+            <p class="tb">
+              Wir haben jetzt also <b>Blocks</b> die sehr schwer zu produzieren sind und die alle zusammen unsere gesamte
+              Transaktionsdatenbank bilden. Da sie aber unabhängig voneinander sind, wäre es einfach für einen Node einen
+              Block zu löschen oder nachträglich hinzuzufügen. Und dann wären wir wieder genau da wo wir angefangen haben.
+              Verschiedene <b>Nodes</b> haben unterschiedliche
+              <b>Blocks</b>. Welche Blocks sind jetzt also die richtigen?
+            </p>
+
+            <div class="field p-75">
+              <div class="has-text-right">
+                <button class="button has-tri1 is-primary material" click.delegate="nextPage()">
+                  Der letzte Schritt
+                </button>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+
+
+        <div show.bind="page === 12">
+          <div class="hero is-grey is-small has-shadow">
+            <div class="hero-body has-tri1" style="padding: 1rem 0.75rem">
+
+              <h1 class="title">
+                Die Blockchain
+              </h1>
+
+              <h2 class="subtitle">
+                Die Blocks verbinden.
+              </h2>
+
+            </div>
+          </div>
+
+          <div class="box ">
+
+            <p class="tb">
+              Idealerweise liegen die <b>Blocks</b> in unveränderlicher chronologischer Reihenfolge vor. Jeder Versuch Blocks
+              zu verändern, nächträglich welche zu entfernen oder hinzuzufügen soll sofort feststellbar sein. Gibt es eine
+              Möglichkeit die Blocks so zu verbinden, dass sie diesen Anforderungen genügen.
+
+
+            </p>
+
+            <p class="tb">
+              Tatsächlich müssen wir nur eine kleine Modifikation vornehmen um das zu erreichen. <b>Miner</b> nehmen nicht
+              nur die Transaktionen und die Nonce in ihren Block auf, sondern auch den Hash des vorherigen Blocks. Daraus
+              wird nun wie gehabt der Hash des aktuellen Blocks berechnet.
+            </p>
+
+
+            <div class="is-flex" style="justify-content: flex-start; margin-bottom: 1.5rem;">
+              <figure class="image has-shadow has-background-white" style="max-width: 500px;">
+                <img src="/../external/blockchain2.png">
+              </figure>
+            </div>
+
+            <p class="tb">
+              Da jeder Hash jetzt vom Hash des vorherigen Blocks abhängt, würde jede nachträgliche Manipulation eines Blocks alle darauffolgenden
+              Blocks ungültig machen. Wir haben jetzt also eine Kette von Blöcken die mittels kryptographischer Hashes verbunden
+              ist. Solch eine Kette nennen wir <b>Blockchain</b>
+            </p>
+
+            <p class="tb">
+              Um das ganze verständlicher zu machen stellen wir uns einen geldgierigen jungen Mann namens Michael vor. Er hat vor kurzem
+              gehört, dass Bitcoin Mining ein profitables Geschäft ist. Er installiert also die Bitcoin Software auf seinem
+              Computer und lädt die aktuelle Blockchain herunter. Er hat nun alle Blöcke in der richtigen Reihenfolge. Anders
+              ausgedrückt, er besitzt jetzt die gesamte Bitcoin Transaktionshistorie. Er kann sich sicher sein, dass sie
+              nicht verändert wurde und das sie jeder andere Nutzer ebenfalls akzeptiert. Er wartet nun auf neue Transaktionen.
+              Hunderte erreichen ihn jede Minute und er baut sich daraus seinen ersten eigenen Block. Nebst aller Transaktionen,
+              nimmt er den Hash des letzten gültigen Blocks auf. Außerdem fügt er seine persönliche Belohnungstransaktion
+              (6.25 BTC) dem Block hinzu. Er nutzt jetzt die gesamte Leistung seines Computers um der erste zu sein der einen
+              gültigen Hash für seinen Block findet (19 Nullen).
+            </p>
+
+            <p class="tb">
+              Michael hat ausserordentliches Glück und findet tatsächlich als erstes den Block. Er sendet den Block nun an alle anderen
+              Nodes, die ihn hinsichtlich folgender Regeln (Bitcoin Protokol) überprüfen:
+            </p>
+
+            <div class="content tb">
+              <ul>
+                <li style="padding-bottom:0.75rem;">
+                  Berechne den Hash des Blocks (mit der übermitteltelten Nonce) um seine Gültigkeit zu überprüfen. Startet er wirklich mit
+                  der geforderten Anzahl von Nullen?
+                </li>
+                <li style="padding-bottom:0.75rem;">
+                  Prüfe für jede enthaltene Transaktion ob die Signatur gültig ist.
+                </li>
+                <li style="padding-bottom:0.75rem;">
+                  Prüfe für jede enthaltene Transaktion ob der jeweilige Absender auf Basis aller vorherigen Blocks über ausreichend Guthaben
+                  verfügt.
+                </li>
+                <li style="padding-bottom:0.75rem;">
+                  Prüfe ob die Höhe der Belohnungstransaktion 6.25 BTC entspricht.
+                </li>
+              </ul>
+            </div>
+
+            <div class="tb">
+              Wenn der Block all diesen Überprüfungen stand hält, drücken die anderen <b>Miner</b> ihre Zustimmung dadurch
+              aus, dass sie ihren nächsten Block darauf aufbauen. Das bedeutet, dass sie den Hash dieses Blocks ihrem nächsten
+              Block hinzufügen. Ist der Block fehlerhaft wird er von den Minern ignoriert und Michael's Anstrengungen wären
+              vergebens gewesen. Aber Michael ist clever und produziert nur Blöcke die den Protokollregeln genügen. Deshalb
+              bauen Miner auf seinen Block auf, der von nun an Teil der Blockchain ist. Michael ist um 6.25 Bitcoin reicher
+              und obwohl Profit sein einziges Motiv war, hat er ganz nebenbei dabei geholfen eine dezentrale und unveränderliche
+              Transaktionsdatenbank zu erstellen. Hut ab!
+            </div>
+
+            <div class="tb">
+              Weitere Anmerkungen:
+            </div>
+
+            <div class="content tb">
+              <ul>
+                <li style="padding-bottom:0.75rem;">
+                  Es gibt eine goldene Regel für alle Miner: Laut Bitcoin Protokoll wird die <b>längste Kette</b> von Blocks
+                  als legitime Bitcoin Transaktionsdatenbank angesehen, weil die meiste Arbeit (= Rechenleistung) aufgewendet
+                  wurde um sie zu produzieren (Proof of Work). Miner bauen ihren Block also immer auf der längsten existierenden
+                  Kette auf, da sie natürlich wollen, dass ihr Block (zusammen mit ihrer Belohnungstransaktion) ebenfalls
+                  Teil der längsten Kette ist. Alle Blöcke ausserhalb der längsten Kette sind nicht Teil der Bitcoin Transaktionshistorie
+                  und alle enthaltenen Transaktionen damit wertlos. So als ob sie nie existiert hätten.
+
+                </li>
+                <li style="padding-bottom:0.75rem;">
+                  Jede Blockchain startet mit einem so genannten <b>Genesis Block</b>. Er ist der einzige Block der keinen
+                  Hash des vorherigen Blocks enthält, da noch kein Block zuvor existierte. Er kann ausschließlich die Belohnungstransaktion
+                  enthalten, die das erste Geld dieser neuen Währung erschafft. Nur Belohnungstransaktionen erzeugen neues
+                  Geld.
+                </li>
+                <li style="padding-bottom:0.75rem;">
+                  Es kann passieren, dass zwei Blocks zur exakt selben Zeit von zwei unterschiedlichen Minern gefunden werden. Miner müssen
+                  sich jetzt für einen Block entscheiden auf den sie aufbauen wollen, indem sie den entsprechenden Hash aufnehmen.
+                  Wird jetzt der nächste Block gefunden, ist die Unklarheit ausgeräumt und es existiert wieder eine eindeutig
+                  längste Kette.
+                </li>
+                <li style="padding-bottom:0.75rem;">
+                  Eine mögliche Attacke auf das Bitcoin Netzwerk könnte sein, dass ein böswilliger Miner seinen nächsten Block nicht auf den
+                  letzten gültigen Block aufbaut, sondern auf einen der vorherigen. Dadurch würde eine Nebenkette (Abspaltung
+                  von der längsten Kette) entstehen und der Miner würde versuchen diese zu erweitern. Schafft er es die derzeit
+                  längste Kette zu überholen, indem er neue Blocks schneller findet als alle anderen Miner zusammen, wäre
+                  seine Kette die längste und würde als offizielle Bitcoin Transaktionsdatenbank angesehen. Alle Blöcke der
+                  einst längsten Kette, die nach der Aufsplittung der Kette vorkommen, wären wertlos. Händler könnten auf
+                  Basis dieser Blöcke schon Produkte verschickt haben. So etwas wäre katastrophal für den Wert von Bitcoin,
+                  weil man sich nicht mehr auf die Integrität der Blockchain Datenbank verlassen könnte. Allerdings ist so
+                  eine Attacke sehr sehr unwahrscheinlich, da ein Angreifer dauerhaft mehr als 50% der Hashrate des gesamten
+                  Bitcoin Netzwerks benötigt um Blocks schneller zu minen als alle anderen Miner zusammen.
+                </li>
+
+                <li style="padding-bottom:0.75rem;">
+                  Um kurzfristige Probleme dieser Art zu vermeiden sollten Empfänger von Bitcoin einige Blöcke abwarten bevor sie eine Transaktion
+                  als 'bestätigt' ansehen und beispielsweise Produkte verschicken. Umso weiter ein Block zurückliegt, desto
+                  schwieriger ist es diesen wieder zu entfernen, da eine immer größere Anzahl von Blocks schneller gemined
+                  werden muss als die aktuell längste Kette verlängert wird.
+                </li>
+
+                <li style="padding-bottom:0.75rem;">
+                  Versucht jemand Transaktionen in einem Block zu manipulieren würde sich der Hash ändern und damit wäre die Kette unterbrochen,
+                  da keiner der nachfolgenden Blocks mit diesem neuen Hash verknüpft ist. Die gesamte Kette müsste also von
+                  diesem modifizierten Block ab neu gemined werden. Das ist unmöglich, ausser man besitzt die Mehrheit der
+                  Hashrate.
+                </li>
+
+                <li style="padding-bottom:0.75rem;">
+                  Die maximale Geldmenge ist auf 21 Millionen Bitcoins begrenzt. Etwa alle vier Jahre wird die Block Belohnung für Miner halbiert.
+                  Miner können zusätzlich Gebühren für die Aufnahme einer Transaktion in ihren Block verlangen. Das gibt
+                  ihnen einen Anreiz überhaupt Transaktionen zu inkludieren.
+
+                </li>
+              </ul>
+            </div>
+
+            <div class="field p-75">
+              <div class="has-text-right">
+                <button class="button has-tri1 is-primary material" click.delegate="nextPage()">
+                  Fast geschafft
+                </button>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+
+        <div show.bind="page === 13">
+          <div class="hero is-grey is-small has-shadow">
+            <div class="hero-body has-tri1" style="padding: 1rem 0.75rem">
+
+              <h1 class="title">
+                Mission erfüllt
+              </h1>
+
+              <h2 class="subtitle">
+                Die Revolution hat gerade erst begonnen.
+              </h2>
+
+            </div>
+          </div>
+
+          <div class="box ">
+
+            <p class="tb">
+              Was wir geschaffen haben ist wirklich bemerkenswert. Das erste mal in der Menschheitsgeschichte haben wir eine digitale Währung
+              ohne zentrale Kontrolle. Wir haben ökonomische Anreize und geniale Mathematik auf eine Weise miteinander kombiniert,
+              die es uns erlaubt hat, eine echte dezentrale Datenbank zu bauen. Das ist revolutionär.
+
+            </p>
+
+            <p class="tb">
+              Der Wert des Bitcoin hängt von der Vetrauenswürdigkeit der Blockchain ab. Jeder der an der Kette mitarbeiten möchte muss
+              Geld investieren (Computerhardware und Energie). Und da die Belohnung in Bitcoin ausbezahlt wird, hat jeder
+              Miner einen starken Anreiz sich an die Bitcoin Konsensregeln zu halten. Wer das nicht tut, verliert Geld.
+            </p>
+
+            <p class="tb">
+              Dieses Tutorial ist in keinster Weise vollständig und es gibt viele Dinge die wir gar nicht thematisiert haben. Vorschläge
+              sind immer willkommen. Denkst du es wurde etwas wichtiges vergessen? Glaubst du ein Thema hätte auf eine viel
+              bessere Art und Weise erklärt werden können? Oder hast du eine Frage? Zögere nicht mir zu schreiben : <a
+                 href="mailto:voluntaryway@gmail.com">voluntaryway@gmail.com</a>
+            </p>
+
+            <p class="tb">
+              Jetzt ist es endlich an der Zeit mit dem Simulator zu spielen und all die Dinge auszuprobieren, die du gelernt hast. Erstelle
+              deine eigene Blockchain, generiere eine Wallet, mine deinen ersten Block, sende und empfange Transaktionen
+              oder schau einfach dabei zu wie die Blockchain wächst. Je mehr Leute zusammen 'spielen', desto mehr Spaß macht
+              es. Ideal für Gruppen, Kurse oder im Klassenzimmer. Oder probiers einfach mit ein paar Freunden aus. Möchtest
+              du allein auf Entdeckungsreise gehen, dann simuliere mehrere Nutzer mit unterschiedlichen Browsern.
+            </p>
+
+            <p class="tb">
+              <b>Danke und viel Spaß!</b>
+
+            </p>
+
+            <div class="field p-75">
+              <div class="has-text-right">
+                <a class="button has-tri1 is-info material" route-href="route: blockchain">
+                  Zum Simulator
+                </a>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+
+        <div show.bind="page === 15">
+          <div class="hero is-grey is-small has-shadow">
+            <div class="hero-body has-tri1" style="padding: 1rem 0.75rem">
+
+              <h1 class="title">
+                ${state.t.expl.l1[state.l]}
+              </h1>
+
+              <h2 class="subtitle">
+                ${state.t.expl.l2[state.l]}
+              </h2>
+
+            </div>
+          </div>
+
+          <div class="box  ">
+            <p class="has-text-weight-semibold ">${state.t.expl.l3[state.l]}:</p>
+
+            <div class="content">
+
+              <ol type="1">
+                <li style="padding-bottom:0.75rem;">
+                  ${state.t.expl.l4[state.l]}
+                </li>
+                <li style="padding-bottom:0.75rem;">
+                  ${state.t.expl.l5[state.l]}
+                </li>
+                <li style="padding-bottom:0.75rem;">
+                  ${state.t.expl.l6[state.l]}
+                </li>
+                <li style="padding-bottom:0.75rem;">
+                  ${state.t.expl.l7[state.l]}
+                </li>
+                <li style="padding-bottom:0.75rem;">
+                  ${state.t.expl.l8[state.l]}
+                </li>
+                <li style="padding-bottom:0.75rem;">
+                  ${state.t.expl.l9[state.l]}
+                </li>
+
+              </ol>
+
+            </div>
+
+            <p class="label is-size-6">${state.t.expl.l10[state.l]}
+            </p>
+
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+
+
+  </div>
+
+
+
+
+
+
+</template>
