@@ -2,6 +2,7 @@ const User = require('./mongoschema/userSchema');
 const Transaction = require('./mongoschema/transactionSchema').Transaction;
 const Block = require('./mongoschema/blockSchema');
 const Blockchain = require('./mongoschema/blockchainSchema');
+const config = require('./config');
 
 module.exports = function(app, express, io, clients) {
   app.post('/newUser', async(req, res) => {
@@ -130,8 +131,8 @@ module.exports = function(app, express, io, clients) {
     // Endpoint to precalculate the Chain up to a certain block height.
     // Call from Browser Console.
     // Paste your Private Key here, so only you will be allowed to use this endpoint.
-    const adminPrivateKey = '';
-    if (req.body.key == adminPrivateKey) {
+    const adminPrivateKey = config.adminPrivateKey;
+    if (req.body.key === adminPrivateKey) {
       await Blockchain.findOneAndUpdate({ name: req.body.name }, { truncated: req.body.truncated });
       await Transaction.deleteMany({ blockchain: req.body.name });
     }
