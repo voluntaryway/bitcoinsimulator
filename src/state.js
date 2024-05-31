@@ -25,8 +25,8 @@ export class state {
     this.publicChainObject = {
       name: 'public',
       difficulty: 4,
-      blockReward: 6.25,
-      genesisReward: 6.25
+      blockReward: 3.125,
+      genesisReward: 3.125
     };
 
     this.mempool = [];
