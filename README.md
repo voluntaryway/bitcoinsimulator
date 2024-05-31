@@ -1,7 +1,7 @@
 # bitcoinsimulator
 Educational Blockchain Simulator with interactive Tutorial.
 
-You can find a running version on: https://bitcoinsimulator.tk
+NEW DOMAIN: You can find a running version on: https://bitcoinsimulator.duckdns.org
 
 Run the server with node.js.
 
